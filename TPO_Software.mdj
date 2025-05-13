@@ -11969,7 +11969,7 @@
 											"top": 659,
 											"width": 163.2587890625,
 											"height": 13,
-											"text": "-detalles: <Producto>",
+											"text": "-detalles: List<Producto>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -13870,56 +13870,12 @@
 					]
 				},
 				{
-					"_type": "UMLInterface",
-					"_id": "AAAAAAGWAgtKPsdUki4=",
-					"_parent": {
-						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
-					},
-					"name": "IPagable",
-					"attributes": [
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAGWAgtiRcd/jVQ=",
-							"_parent": {
-								"$ref": "AAAAAAGWAgtKPsdUki4="
-							},
-							"name": "Attribute1",
-							"type": ""
-						}
-					],
-					"operations": [
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAGWAguUIMeFn+0=",
-							"_parent": {
-								"$ref": "AAAAAAGWAgtKPsdUki4="
-							},
-							"name": "procesarPago(monto: double)"
-						}
-					]
-				},
-				{
 					"_type": "UMLClass",
 					"_id": "AAAAAAGWAhDVC8gM/P4=",
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
 					"name": "MetodoPago",
-					"ownedElements": [
-						{
-							"_type": "UMLInterfaceRealization",
-							"_id": "AAAAAAGWG503cn3feNs=",
-							"_parent": {
-								"$ref": "AAAAAAGWAhDVC8gM/P4="
-							},
-							"source": {
-								"$ref": "AAAAAAGWAhDVC8gM/P4="
-							},
-							"target": {
-								"$ref": "AAAAAAGWAgtKPsdUki4="
-							}
-						}
-					],
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -15312,7 +15268,7 @@
 							},
 							"name": "detalles",
 							"visibility": "private",
-							"type": "<Producto>"
+							"type": "List<Producto>"
 						}
 					],
 					"operations": [
