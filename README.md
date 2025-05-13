@@ -1,7 +1,7 @@
 # TPO-PDS
 Trabajo Practico - Proceso de Desarrollo de Software
 
-##Integrantes
+### Integrantes
 Castillo Nahuel
 Ferreira Valentin
 Insaurralde Ciro
