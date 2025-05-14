@@ -12,7 +12,9 @@ public class Chef extends Staff {
 
     private Pedido pedido;
 
-    public Chef() {
+    public Chef(String nombre) {
+        idStaff = UUID.randomUUID().toString();
+        this.nombre = nombre;
     }
 
     public boolean estaLibre() {

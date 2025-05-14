@@ -12,7 +12,9 @@ public class Administrativos extends Staff {
 
     private Pedido pedido;
 
-    public Administrativos() {
+    public Administrativos(String nombre) {
+        idStaff = UUID.randomUUID().toString();
+        this.nombre = nombre;
     }
 
     public boolean estaLibre() {

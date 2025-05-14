@@ -17,10 +17,14 @@ public class Mozo extends Staff {
 
     private List<Pedido> pedidosAsignados = new ArrayList<>();
 
-    public Mozo(INotificable canal) {
+    public Mozo(String nombre, INotificable canal) {
+        idStaff = UUID.randomUUID().toString();
+        this.nombre = nombre;
         this.ocupado = false;
         this.canal = canal;
     }
+
+
 
     public boolean estaLibre() {
         return pedidosAsignados.isEmpty();

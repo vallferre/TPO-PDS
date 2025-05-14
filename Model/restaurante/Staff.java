@@ -7,6 +7,9 @@ import pedido.Pedido;
 
 public abstract class Staff {
 
+    protected String idStaff;
+
+    protected String nombre;
 
     public Staff() {
     }

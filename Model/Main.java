@@ -95,7 +95,7 @@ public class Main {
         Cliente cliente = new Cliente("Franco Lovera", email, canalEmail);
 
         INotificable notificacionPush = new NotificacionPush();
-        Mozo mozo = new Mozo(notificacionPush);
+        Mozo mozo = new Mozo("enrique",notificacionPush);
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
 
