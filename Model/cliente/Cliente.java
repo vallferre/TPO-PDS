@@ -50,8 +50,9 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public Email getEmail() {
-        return email;
+    public String getEmailNombre() {
+        String emailCompleto = email.getUsername() + email.getDomain();
+        return emailCompleto;
     }
 
     public void setEmail(Email email) {

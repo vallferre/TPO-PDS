@@ -11,7 +11,7 @@ public class Cancelado extends Estado {
     public String getRazon(Pedido pedido){
         String mensaje = "";
         if(pedido.getMetodoPago().procesarPago(pedido.getTotal()) == false){
-            mensaje = "Razon: Fondos insuficientes.";
+            mensaje = "Razon: Fondos insuficientes";
             return mensaje;
         };
         return mensaje;

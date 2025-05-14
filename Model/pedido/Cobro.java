@@ -46,7 +46,7 @@ public class Cobro {
     }
 
     public void generarFactura() {
-        Factura factura = new Factura(monto, metodoPago, detalles);
+        Factura factura = new Factura(monto, metodoPago, detalles, cupon);
         factura.imprimirFactura();
     }
 

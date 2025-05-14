@@ -1,5 +1,6 @@
 package pedido;
 
+import cliente.ICuponAplicable;
 import pago.MetodoPago;
 import producto.IProducto;
 import producto.Producto;
@@ -19,11 +20,14 @@ public class Factura {
 
     private List<IProducto> detalles;
 
-    public Factura(double monto, MetodoPago metodoPago, List<IProducto> detalles) {
+    private ICuponAplicable cupon;
+
+    public Factura(double monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
         this.fecha = LocalDateTime.now();
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.detalles = detalles;
+        this.cupon = cupon;
     }
 
     public LocalDateTime getFechaEmision() {
@@ -38,6 +42,9 @@ public class Factura {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String fechaFormateada = fecha.format(formato);
         System.out.println("Factura " + fechaFormateada);
+        if (cupon != null){
+            System.out.println("Descuento: " + cupon.getPorcentajeDto() + "%");
+        }
         System.out.println("Monto: " + monto);
         System.out.println("Metodo de pago: " + metodoPago.getClass().getSimpleName());
         System.out.println("Detalles: ");

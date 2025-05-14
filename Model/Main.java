@@ -113,8 +113,6 @@ public class Main {
                 cliente
         );
 
-        System.out.println("-----------------------------------");
-
         mozo.asignarPedido(pedido);
 
         System.out.println("-----------------------------------");
@@ -141,7 +139,7 @@ public class Main {
         );
 
         System.out.println("Cliente: " + cliente1.getNombre());
-        System.out.println("Email: " + cliente1.getEmail());
+        System.out.println("Email: " + cliente1.getEmailNombre());
         for (IProducto p : productosSeleccionados1) {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }

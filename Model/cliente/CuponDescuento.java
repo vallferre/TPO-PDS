@@ -30,4 +30,8 @@ public class CuponDescuento implements ICuponAplicable {
         return total;
     };
 
+    @Override
+    public int getPorcentajeDto() {
+        return porcentajeDescuento;
+    }
 }
