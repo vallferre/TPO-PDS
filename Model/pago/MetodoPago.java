@@ -3,35 +3,23 @@ package pago;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public abstract class MetodoPago{
 
-    /**
-     * Default constructor
-     */
+    protected int numeroTarjeta;
+
+    protected String nombre;
+
+    protected String direccion;
+
+    protected Date fechaExpiracion;
+
+    protected int CVV;
+
     public MetodoPago() {
     }
 
-    /**
-     * 
-     */
-    protected double monto;
-
-    /**
-     * @return
-     */
-    public boolean validarFondos() {
-        // TODO implement here
+    public boolean procesarPago(float monto) {
         return false;
-    }
-
-    /**
-     * 
-     */
-    public void procesarPago(double monto) {
-        // TODO implement pago.IPagable.procesarPago(monto: double)() here
     }
 
 }

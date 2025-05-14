@@ -6,19 +6,30 @@ import pedido.Pedido;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Administrativos extends Staff {
 
-    /**
-     * Default constructor
-     */
+    private boolean ocupado;
+
+    private Pedido pedido;
+
     public Administrativos() {
     }
 
-    @Override
-    public void actualizarEstado(Pedido pedido, Estado estado) {
+    public boolean estaLibre() {
+        return !ocupado;
+    }
 
+    public void asignarPedido(Pedido pedido) {
+        ocupado = true;
+        this.pedido = pedido;
+    }
+
+    public void liberar() {
+        ocupado = false;
+        pedido = null;
+    }
+    @Override
+    public void actualizarEstado(Estado estado) {
+        pedido.getEstado().avanzarEstado(pedido);
     }
 }

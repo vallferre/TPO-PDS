@@ -1,25 +1,19 @@
 package pedido;
 
+import notificacion.INotificable;
+
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Enviado extends Estado {
 
-    /**
-     * Default constructor
-     */
     public Enviado() {
     }
 
-    /**
-     * @param pedido 
-     * @return
-     */
     public void avanzarEstado(Pedido pedido) {
-        // TODO implement here
+        Entregado entregado = new Entregado();
+        pedido.setEstado(entregado);
+        pedido.getCliente().recibirNotificacion("Tu pedido ha sido enviado", pedido);
     }
 
 }

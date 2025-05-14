@@ -1,61 +1,55 @@
 package pedido;
 
+import cliente.CuponDescuento;
+import cliente.ICuponAplicable;
 import pago.MetodoPago;
+import producto.IProducto;
 import producto.Producto;
 
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Cobro {
 
-    /**
-     * Default constructor
-     */
-    public Cobro() {
-    }
-
-    /**
-     * 
-     */
     private Date fecha;
 
-    /**
-     * 
-     */
-    private double monto;
+    private float monto;
 
-    /**
-     * 
-     */
     private MetodoPago metodoPago;
 
-    /**
-     * 
-     */
-    private List<Producto> detalles;
+    private ICuponAplicable cupon;
 
-    /**
-     * @return
-     */
-    public void pagar() {
-        // TODO implement here
+    private List<IProducto> detalles;
+
+    public Cobro(Date fecha, float monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
+        this.fecha = fecha;
+        this.monto = monto;
+        this.metodoPago = metodoPago;
+        this.detalles = detalles;
+        this.cupon = cupon;
     }
 
-    /**
-     * @return
-     */
+    public boolean irAPagar() {
+        if (cupon != null) {
+            aplicarCupon();
+        }
+
+        boolean pagoExitoso = metodoPago.procesarPago(monto);
+
+        if (pagoExitoso) {
+            generarFactura();
+        }
+
+        return pagoExitoso;
+    }
+
     public void aplicarCupon() {
-        // TODO implement here
+        cupon.aplicarDescuento(monto);
     }
 
-    /**
-     * @return
-     */
     public void generarFactura() {
-        // TODO implement here
+        Factura factura = new Factura(fecha, monto, metodoPago, detalles);
+        factura.imprimirFactura();
     }
 
 }

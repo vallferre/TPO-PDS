@@ -2,30 +2,22 @@ package notificacion;
 
 import java.io.*;
 import java.util.*;
-import cliente.Email;
 
-/**
- *
- */
+import cliente.Cliente;
+import cliente.Email;
+import pedido.Pedido;
+
 public class NotificacionEmail implements INotificable {
 
-    /**
-     * Default constructor
-     */
-    public NotificacionEmail() {
-    }
-
-    /**
-     *
-     */
     private Email emailDestino;
 
-    /**
-     * @param mensaje
-     */
+    public NotificacionEmail(Cliente cliente) {
+        emailDestino = cliente.getEmail();
+    }
+
     @Override
-    public void enviarNotificacion(String mensaje) {
-        // TODO implement notificacion.INotificable.enviarNotificacion() here
+    public void notificar(String mensaje, Pedido pedido) {
+        System.out.println("[EMAIL a " + emailDestino.getDomain() + "] está en estado " + pedido.getEstado());
     }
 
 }

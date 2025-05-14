@@ -5,49 +5,32 @@ import pedido.Pedido;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Restaurante {
 
-    /**
-     * Default constructor
-     */
-    public Restaurante() {
-    }
-
-    /**
-     * 
-     */
     private int idRestaurante;
 
-    /**
-     * 
-     */
     private String nombre;
 
-    /**
-     * 
-     */
     private String direccion;
 
-    /**
-     * 
-     */
-    public Staff trabaja_en;
+    private List<Staff> staff;
 
-    /**
-     * @return
-     */
-    public void gestionarPedidos() {
-        // TODO implement here
+    public Restaurante(int idRestaurante, String nombre, String direccion, List<Staff> staff) {
+        this.idRestaurante = idRestaurante;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.staff = staff;
     }
 
-    /**
-     * @return
-     */
-    public void actualizarMenu() {
-        // TODO implement here
-    }
+    public void gestionarPedidos(Pedido pedido) {
+        for (Staff miembro : staff) {
+            if (miembro instanceof Mozo) {
+                Mozo mozo = (Mozo) miembro;
+                if (mozo.estaLibre()){
+                    mozo.asignarPedido(pedido);
+                }
+            }
+        }
 
+    }
 }

@@ -1,30 +1,18 @@
 package notificacion;
 
+import pedido.Pedido;
+
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class NotificacionPush implements INotificable {
 
-    /**
-     * Default constructor
-     */
     public NotificacionPush() {
     }
 
-    /**
-     * 
-     */
-    private int usuarioId;
-
-    /**
-     * @param mensaje
-     */
     @Override
-    public void enviarNotificacion(String mensaje) {
-        // TODO implement notificacion.INotificable.enviarNotificacion() here
+    public void notificar(String mensaje, Pedido pedido) {
+        System.out.println("El pedido [" + pedido.getIdPedido() + "] esta en estado " + pedido.getEstado());
     }
 
 }

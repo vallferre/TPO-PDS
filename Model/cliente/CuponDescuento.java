@@ -1,47 +1,32 @@
 package cliente;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
-/**
- * 
- */
 public class CuponDescuento implements ICuponAplicable {
 
-    /**
-     * Default constructor
-     */
-    public CuponDescuento() {
-    }
-
-    /**
-     * 
-     */
     private int codigo;
 
-    /**
-     * 
-     */
     public int porcentajeDescuento;
 
-    /**
-     * 
-     */
     private Date fechaExpiracion;
 
+    private LocalDate fechaActual = LocalDate.now();
 
-    /**
-     * @return
-     */
-    public boolean validar() {
-        // TODO implement here
-        return false;
+    public CuponDescuento(int codigo, int porcentajeDescuento, Date fechaExpiracion) {
+        this.codigo = codigo;
+        this.porcentajeDescuento = porcentajeDescuento;
+        this.fechaExpiracion = fechaExpiracion;
     }
 
-
-    /**
-     * @param total
-     */
     @Override
-    public void aplicarDescuento(double total){};
+    public double aplicarDescuento(double total){
+        Date fechaHoy = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if (fechaHoy.before(fechaExpiracion)){
+            total = total * porcentajeDescuento;
+        }
+        return total;
+    };
 
 }

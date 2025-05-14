@@ -3,46 +3,34 @@ package producto;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public abstract class ProductoDecorador implements IProducto {
 
-    /**
-     * Default constructor
-     */
-    public ProductoDecorador() {
+    protected IProducto componente;
+
+    public ProductoDecorador(IProducto componente) {
+        this.componente = componente;
     }
 
-    /**
-     * 
-     */
-    private IProducto componente;
-
-
-    /**
-     * @return
-     */
-    public void modificarPrecio() {
-        // TODO implement here
-    }
-
-    /**
-     * @return
-     */
     @Override
     public float getPrecio() {
-        // TODO implement here
-        return 0.0f;
+        return componente.getPrecio();
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getDescripcion() {
-        // TODO implement here
-        return "";
+        return componente.getDescripcion();
     }
 
+    @Override
+    public String getNombre() {
+        return componente.getNombre();
+    }
+
+    @Override
+    public int getId() {
+        return componente.getId();
+    }
+
+    public void modificarPrecio() {
+    }
 }

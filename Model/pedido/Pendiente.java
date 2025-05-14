@@ -3,23 +3,22 @@ package pedido;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Pendiente extends Estado {
 
-    /**
-     * Default constructor
-     */
     public Pendiente() {
     }
 
-    /**
-     * @param pedido 
-     * @return
-     */
     public void avanzarEstado(Pedido pedido) {
-        // TODO implement here
+        boolean cobroExitoso = pedido.cobrar();
+        if (cobroExitoso) {
+            Procesando procesando = new Procesando();
+            pedido.setEstado(procesando);
+            pedido.getCliente().recibirNotificacion("Tu pedido fue aceptado", pedido);
+        } else {
+            Cancelado cancelado = new Cancelado();
+            pedido.setEstado(cancelado);
+            pedido.getCliente().recibirNotificacion("Tu pedido fue cancelado", pedido);
+        }
     }
 
 }

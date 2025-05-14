@@ -14,11 +14,8 @@ public class Cancelado extends Estado {
     public Cancelado() {
     }
 
-    /**
-     * @param pedido 
-     * @return
-     */
     public void avanzarEstado(Pedido pedido) {
-        // TODO implement here
+        pedido.setEstado(this);
+        pedido.getMozoAsignado().liberar(pedido);
     }
 }

@@ -5,17 +5,12 @@ import java.util.*;
 import pedido.Estado;
 import pedido.Pedido;
 
-/**
- * 
- */
 public abstract class Staff {
 
-    /**
-     * Default constructor
-     */
+
     public Staff() {
     }
 
-    public abstract void actualizarEstado(Pedido pedido, Estado estado);
+    public abstract void actualizarEstado(Estado estado);
 
 }

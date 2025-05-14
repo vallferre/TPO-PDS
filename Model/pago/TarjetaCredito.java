@@ -3,35 +3,19 @@ package pago;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class TarjetaCredito extends MetodoPago {
 
-    /**
-     * Default constructor
-     */
-    public TarjetaCredito() {
+    public TarjetaCredito(int numeroTarjeta, String nombre, String direccion, Date fechaExpiracion, int CVV) {
+        this.numeroTarjeta = numeroTarjeta;
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.fechaExpiracion = fechaExpiracion;
+        this.CVV = CVV;
     }
 
-    /**
-     * 
-     */
-    private int numeroTarjeta;
-
-    /**
-     *
-     */
-    private Date fechaExpiracion;
-
-    /**
-     *
-     */
-    private int CVV;
-
     @Override
-    public void procesarPago(double monto) {
-        // TODO implement here
+    public boolean procesarPago(float monto) {
+        return true;
     }
 
 }

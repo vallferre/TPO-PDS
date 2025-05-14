@@ -6,43 +6,34 @@ import producto.Producto;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class Menu {
 
-    /**
-     * Default constructor
-     */
+    private List<IProducto> listaProductos;
+
     public Menu() {
+        listaProductos = new ArrayList<>();
     }
 
-    /**
-     * 
-     */
-    private List<Producto> listaProductos ;
-
-
-    /**
-     * 
-     */
-
-    public void agregarProducto() {
-        // TODO implement here
+    public void agregarProducto(IProducto p) {
+        listaProductos.add(p);
     }
 
-    /**
-     * @return
-     */
-    public void eliminarProducto() {
-        // TODO implement here
+    public void eliminarProducto(IProducto p) {
+        listaProductos.remove(p);
     }
 
-    /**
-     * @return
-     */
-    public void actualizarProducto() {
-        // TODO implement here
+    public void actualizarProducto(IProducto p) {
+        for (int i = 0; i < listaProductos.size(); i++) {
+            IProducto actual = listaProductos.get(i);
+
+            if (actual.getId() == p.getId()) {
+                listaProductos.set(i, p);
+                return;
+            }
+        }
     }
 
+    public List<IProducto> getListaProductos() {
+        return listaProductos;
+    }
 }

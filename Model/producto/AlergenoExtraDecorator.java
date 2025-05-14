@@ -3,40 +3,40 @@ package producto;
 import java.io.*;
 import java.util.*;
 
-/**
- * 
- */
 public class AlergenoExtraDecorator extends ProductoDecorador {
 
-    /**
-     * Default constructor
-     */
-    public AlergenoExtraDecorator() {
+    private String alergenoExtra;
+    private float cargoExtra;
+
+    public AlergenoExtraDecorator(IProducto componente, String alergenoExtra, float cargoExtra) {
+        super(componente);
+        this.alergenoExtra = alergenoExtra;
+        this.cargoExtra = cargoExtra;
     }
 
-    /**
-     * @return
-     */
     @Override
     public float getPrecio() {
-        // TODO implement here
-        return 0.0f;
+        return super.getPrecio() + cargoExtra;
     }
 
-    /**
-     * @return
-     */
     @Override
     public String getDescripcion() {
-        // TODO implement here
-        return "";
+        return super.getDescripcion() + " (Contiene: " + alergenoExtra + ")";
     }
 
-    /**
-     * @return
-     */
+    @Override
+    public String getNombre() {
+        return super.getNombre();
+    }
+
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
+    @Override
     public void modificarPrecio() {
-        // TODO implement here
+        // Si querés modificar dinámicamente el precio del cargo extra
+        this.cargoExtra *= 1.1f; // Ejemplo: aumenta un 10%
     }
-
 }
