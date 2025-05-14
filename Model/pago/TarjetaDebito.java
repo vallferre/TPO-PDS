@@ -1,6 +1,8 @@
 package pago;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.*;
 
 /**
@@ -10,7 +12,7 @@ public class TarjetaDebito extends MetodoPago {
 
     private float fondos;
 
-    public TarjetaDebito(int numeroTarjeta, String nombre, String direccion, Date fechaExpiracion, int CVV, float fondos) {
+    public TarjetaDebito(String numeroTarjeta, String nombre, String direccion, YearMonth fechaExpiracion, int CVV, float fondos) {
         this.numeroTarjeta = numeroTarjeta;
         this.nombre = nombre;
         this.direccion = direccion;

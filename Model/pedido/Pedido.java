@@ -60,8 +60,10 @@ public class Pedido {
         return total;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
+    public void setTotal(List<IProducto> productos) {
+        for (IProducto producto : productos) {
+            total += producto.getPrecio();
+        }
     }
 
     public MetodoPago getMetodoPago() {
@@ -104,11 +106,10 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public Pedido(Estado estado, float total, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente) {
+    public Pedido(Estado estado,  MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente) {
         this.idPedido = UUID.randomUUID().toString();
         this.numeroOrden = UUID.randomUUID().toString();
         this.estado = estado;
-        this.total = total;
         this.metodoPago = metodoPago;
         this.productos = productos;
         cuponAplicable = cupon;

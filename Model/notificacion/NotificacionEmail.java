@@ -11,8 +11,8 @@ public class NotificacionEmail implements INotificable {
 
     private Email emailDestino;
 
-    public NotificacionEmail(Cliente cliente) {
-        emailDestino = cliente.getEmail();
+    public NotificacionEmail(Email emailDestino) {
+        this.emailDestino = emailDestino;
     }
 
     @Override

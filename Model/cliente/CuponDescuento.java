@@ -6,7 +6,7 @@ import java.util.*;
 
 public class CuponDescuento implements ICuponAplicable {
 
-    private int codigo;
+    private String codigo;
 
     public int porcentajeDescuento;
 
@@ -14,7 +14,7 @@ public class CuponDescuento implements ICuponAplicable {
 
     private LocalDate fechaActual = LocalDate.now();
 
-    public CuponDescuento(int codigo, int porcentajeDescuento, Date fechaExpiracion) {
+    public CuponDescuento(String codigo, int porcentajeDescuento, Date fechaExpiracion) {
         this.codigo = codigo;
         this.porcentajeDescuento = porcentajeDescuento;
         this.fechaExpiracion = fechaExpiracion;

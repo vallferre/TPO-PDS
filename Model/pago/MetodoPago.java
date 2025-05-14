@@ -1,17 +1,19 @@
 package pago;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.*;
 
 public abstract class MetodoPago{
 
-    protected int numeroTarjeta;
+    protected String numeroTarjeta;
 
     protected String nombre;
 
     protected String direccion;
 
-    protected Date fechaExpiracion;
+    protected YearMonth fechaExpiracion;
 
     protected int CVV;
 

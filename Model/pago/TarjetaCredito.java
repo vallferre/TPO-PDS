@@ -1,11 +1,13 @@
 package pago;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.*;
 
 public class TarjetaCredito extends MetodoPago {
 
-    public TarjetaCredito(int numeroTarjeta, String nombre, String direccion, Date fechaExpiracion, int CVV) {
+    public TarjetaCredito(String numeroTarjeta, String nombre, String direccion, YearMonth fechaExpiracion, int CVV) {
         this.numeroTarjeta = numeroTarjeta;
         this.nombre = nombre;
         this.direccion = direccion;

@@ -68,7 +68,7 @@ public class Cliente {
 
     public void realizarPedido(Restaurante restaurante, float total, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon) {
         Pendiente pendiente = new Pendiente();
-        Pedido pedido = new Pedido(pendiente, total, metodoPago, productos, cupon, this);
+        Pedido pedido = new Pedido(pendiente, metodoPago, productos, cupon, this);
         historialPedidos.add(pedido);
         pendiente.notificar();
         restaurante.gestionarPedidos(pedido);
