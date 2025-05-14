@@ -1890,7 +1890,7 @@
 											"top": 902,
 											"width": 234.0732421875,
 											"height": 13,
-											"text": "#numeroTarjeta: int",
+											"text": "#numeroTarjeta: String",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1908,7 +1908,7 @@
 											"top": 917,
 											"width": 234.0732421875,
 											"height": 13,
-											"text": "#fechaExpiracion: Date",
+											"text": "#fechaExpiracion: YearMonth",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2791,7 +2791,7 @@
 											"top": 854,
 											"width": 234.79052734375,
 											"height": 13,
-											"text": "-codigo: int",
+											"text": "-codigo: String",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2809,7 +2809,7 @@
 											"top": 869,
 											"width": 234.79052734375,
 											"height": 13,
-											"text": "+porcentajeDescuento: int",
+											"text": "-porcentajeDescuento: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -14225,7 +14225,7 @@
 							},
 							"name": "numeroTarjeta",
 							"visibility": "protected",
-							"type": "int"
+							"type": "String"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -14235,7 +14235,7 @@
 							},
 							"name": "fechaExpiracion",
 							"visibility": "protected",
-							"type": "Date"
+							"type": "YearMonth"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -14437,7 +14437,7 @@
 							},
 							"name": "codigo",
 							"visibility": "private",
-							"type": "int"
+							"type": "String"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -14446,6 +14446,7 @@
 								"$ref": "AAAAAAGWAr4/Jsk1WKo="
 							},
 							"name": "porcentajeDescuento",
+							"visibility": "private",
 							"type": "int"
 						},
 						{
