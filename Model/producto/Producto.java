@@ -16,14 +16,17 @@ public class Producto implements IProducto {
 
     private float precio;
 
-    private String alergenos;
+    private List<String> alergenos;
 
-    public Producto(int idProducto, String nombre, String descripcion, float precio, String alergenos) {
+    private CategoriaProducto categoriaProducto;
+
+    public Producto(int idProducto, String nombre, String descripcion, float precio, List<String> alergenos, CategoriaProducto categoria) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.alergenos = alergenos;
+        this.categoriaProducto = categoria;
     }
 
     @Override
