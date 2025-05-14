@@ -6,6 +6,7 @@ import notificacion.NotificacionEmail;
 import notificacion.NotificacionPush;
 import pago.MetodoPago;
 import pago.TarjetaCredito;
+import pago.TarjetaDebito;
 import pedido.Pedido;
 import pedido.Pendiente;
 import producto.CategoriaProducto;
@@ -87,6 +88,8 @@ public class Main {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
 
+        System.out.println("-----------------------------------");
+
         Email email = new Email("franco", "@gmail.com");
         INotificable canalEmail = new NotificacionEmail(email);
         Cliente cliente = new Cliente("Franco Lovera", email, canalEmail);
@@ -110,9 +113,41 @@ public class Main {
                 cliente
         );
 
+        System.out.println("-----------------------------------");
+
         mozo.asignarPedido(pedido);
 
-        mozo.getPedidosAsignados();
-    }
+        System.out.println("-----------------------------------");
 
+        Email email1 = new Email("ciro03", "@gmail.com");
+
+        INotificable canalEmail1 = new NotificacionEmail(email1);
+
+        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("MM/yy");
+        YearMonth vencimiento1 = YearMonth.parse("12/26", formato1);
+
+        TarjetaDebito td = new TarjetaDebito("1223-5178-9556-5434", "Ciro Insaurralde", "Av. Lima 757", vencimiento1, 123, 1.0f);
+
+        List<IProducto> productosSeleccionados1 = List.of(empanada, limonada);
+
+        Cliente cliente1 = new Cliente("Insaurralde Ciro", email1, canalEmail1);
+
+        Pedido pedido1 = new Pedido(
+                new Pendiente(),                    // Estado inicial
+                td,                            // método de pago
+                productosSeleccionados1,            // productos
+                null,                               // cupón aplicable
+                cliente1
+        );
+
+        System.out.println("Cliente: " + cliente1.getNombre());
+        System.out.println("Email: " + cliente1.getEmail());
+        for (IProducto p : productosSeleccionados1) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
+
+        System.out.println("-----------------------------------");
+
+        mozo.asignarPedido(pedido1);
+    }
 }

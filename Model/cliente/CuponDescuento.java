@@ -21,10 +21,11 @@ public class CuponDescuento implements ICuponAplicable {
     }
 
     @Override
-    public double aplicarDescuento(double total){
+    public float aplicarDescuento(float total){
         Date fechaHoy = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
         if (fechaHoy.before(fechaExpiracion)){
-            total = total * porcentajeDescuento;
+            float descuento = total * ((float) porcentajeDescuento /100);
+            total = total-descuento;
         }
         return total;
     };

@@ -12,7 +12,7 @@ public class NotificacionPush implements INotificable {
 
     @Override
     public void notificar(String mensaje, Pedido pedido) {
-        System.out.println("El pedido [" + pedido.getIdPedido() + "] " + mensaje + pedido.getNombreEstado());
+        System.out.println(mensaje + pedido.getNombreEstado());
     }
 
 }

@@ -11,8 +11,6 @@ import java.util.*;
 
 public class Cobro {
 
-    private Date fecha;
-
     private float monto;
 
     private MetodoPago metodoPago;
@@ -21,8 +19,7 @@ public class Cobro {
 
     private List<IProducto> detalles;
 
-    public Cobro(Date fecha, float monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
-        this.fecha = fecha;
+    public Cobro(float monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.detalles = detalles;
@@ -31,7 +28,7 @@ public class Cobro {
 
     public boolean irAPagar() {
         if (cupon != null) {
-            aplicarCupon();
+            monto = aplicarCupon();
         }
 
         boolean pagoExitoso = metodoPago.procesarPago(monto);
@@ -43,12 +40,13 @@ public class Cobro {
         return pagoExitoso;
     }
 
-    public void aplicarCupon() {
-        cupon.aplicarDescuento(monto);
+    public float aplicarCupon() {
+        float nuevoTotal = cupon.aplicarDescuento(monto);
+        return nuevoTotal;
     }
 
     public void generarFactura() {
-        Factura factura = new Factura(fecha, monto, metodoPago, detalles);
+        Factura factura = new Factura(monto, metodoPago, detalles);
         factura.imprimirFactura();
     }
 

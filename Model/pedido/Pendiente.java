@@ -15,14 +15,14 @@ public class Pendiente extends Estado {
         if (cobroExitoso) {
             Procesando procesando = new Procesando();
             Cliente cliente = pedido.getCliente();
-            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue aceptado", pedido);
+            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue aceptado. ", pedido);
             pedido.setEstado(procesando);
             pedido.getEstado().avanzarEstado(pedido);
         } else {
             Cliente cliente = pedido.getCliente();
-            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue cancelado", pedido);
             Cancelado cancelado = new Cancelado();
             pedido.setEstado(cancelado);
+            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue cancelado. " + cancelado.getRazon(pedido) + ". ",  pedido);
         }
     }
 

@@ -9,7 +9,10 @@ import restaurante.Restaurante;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Pedido {
@@ -56,7 +59,7 @@ public class Pedido {
         this.estado = estado;
     }
 
-    public double getTotal() {
+    public float getTotal() {
         return total;
     }
 
@@ -123,10 +126,7 @@ public class Pedido {
     }
 
     public boolean cobrar() {
-        LocalDate fechaActual = LocalDate.now();
-        Date fechaHoy = Date.from(fechaActual.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        Cobro cobro = new Cobro(fechaHoy, total, metodoPago, productos, cuponAplicable);
+        Cobro cobro = new Cobro(total, metodoPago, productos, cuponAplicable);
 
         boolean exito = cobro.irAPagar();
 
