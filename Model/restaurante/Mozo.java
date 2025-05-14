@@ -31,6 +31,7 @@ public class Mozo extends Staff {
         pedidosAsignados.add(pedido);
         pedido.asignarMozo(this);
         this.pedido = pedido;
+        pedido.getEstado().avanzarEstado(pedido);
     }
 
     public void liberar(Pedido pedido) {
@@ -47,4 +48,9 @@ public class Mozo extends Staff {
         canal.notificar(mensaje, pedido);
     }
 
+    public void getPedidosAsignados() {
+        for (Pedido pedido : pedidosAsignados) {
+            System.out.println(pedido.getNombreEstado());
+        }
+    }
 }

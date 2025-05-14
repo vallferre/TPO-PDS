@@ -111,5 +111,8 @@ public class Main {
         );
 
         mozo.asignarPedido(pedido);
+
+        mozo.getPedidosAsignados();
     }
+
 }

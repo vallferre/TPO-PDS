@@ -17,7 +17,7 @@ public class NotificacionEmail implements INotificable {
 
     @Override
     public void notificar(String mensaje, Pedido pedido) {
-        System.out.println("[EMAIL a " + emailDestino.getDomain() + "] está en estado " + pedido.getEstado());
+        System.out.println("[EMAIL a " + emailDestino.getUsername() + emailDestino.getDomain() + "] " + mensaje + pedido.getNombreEstado());
     }
 
 }

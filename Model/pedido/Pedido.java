@@ -60,10 +60,11 @@ public class Pedido {
         return total;
     }
 
-    public void setTotal(List<IProducto> productos) {
+    public float setTotal(List<IProducto> productos) {
         for (IProducto producto : productos) {
             total += producto.getPrecio();
         }
+        return total;
     }
 
     public MetodoPago getMetodoPago() {
@@ -114,6 +115,7 @@ public class Pedido {
         this.productos = productos;
         cuponAplicable = cupon;
         this.cliente = cliente;
+        total = setTotal(productos);
     }
 
     public void asignarMozo(Mozo mozo){
@@ -129,6 +131,10 @@ public class Pedido {
         boolean exito = cobro.irAPagar();
 
         return exito;
+    }
+
+    public String getNombreEstado() {
+        return estado.getClass().getSimpleName();
     }
 
 }

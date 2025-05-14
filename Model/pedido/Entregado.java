@@ -9,7 +9,8 @@ public class Entregado extends Estado {
     }
 
     public void avanzarEstado(Pedido pedido) {
-        pedido.getMozoAsignado().liberar(pedido);
         pedido.getCliente().recibirNotificacion("Tu pedido fue entregado", pedido);
+        pedido.getMozoAsignado().liberar(pedido);
+        pedido.setEstado(this);
     }
 }

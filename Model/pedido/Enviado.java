@@ -11,9 +11,9 @@ public class Enviado extends Estado {
     }
 
     public void avanzarEstado(Pedido pedido) {
+        pedido.getCliente().recibirNotificacion("Tu pedido ha sido enviado", pedido);
         Entregado entregado = new Entregado();
         pedido.setEstado(entregado);
-        pedido.getCliente().recibirNotificacion("Tu pedido ha sido enviado", pedido);
     }
 
 }

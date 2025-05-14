@@ -1,5 +1,7 @@
 package pedido;
 
+import restaurante.Mozo;
+
 import java.io.*;
 import java.util.*;
 
@@ -9,13 +11,14 @@ public class Procesando extends Estado {
     }
 
     public void avanzarEstado(Pedido pedido) {
-        Enviado enviado = new Enviado();
-        pedido.setEstado(enviado);
 
-        pedido.getCliente().recibirNotificacion("Tu pedido está en preparación", pedido);
+        pedido.getCliente().recibirNotificacion("Tu pedido está en preparación ", pedido);
 
         if (pedido.getMozoAsignado() != null) {
-            pedido.getMozoAsignado().recibirNotificacion("El pedido #" + pedido.getIdPedido() + " está listo para entregar.", pedido);
+            Mozo mozo = pedido.getMozoAsignado();
+            mozo.recibirNotificacion(mozo.getClass().getSimpleName() + " El pedido #" + pedido.getIdPedido() + " está listo para entregar.", pedido);
         }
+        Enviado enviado = new Enviado();
+        pedido.setEstado(enviado);
     }
 }

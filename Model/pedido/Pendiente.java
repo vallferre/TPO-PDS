@@ -1,5 +1,7 @@
 package pedido;
 
+import cliente.Cliente;
+
 import java.io.*;
 import java.util.*;
 
@@ -12,12 +14,15 @@ public class Pendiente extends Estado {
         boolean cobroExitoso = pedido.cobrar();
         if (cobroExitoso) {
             Procesando procesando = new Procesando();
+            Cliente cliente = pedido.getCliente();
+            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue aceptado", pedido);
             pedido.setEstado(procesando);
-            pedido.getCliente().recibirNotificacion("Tu pedido fue aceptado", pedido);
+            pedido.getEstado().avanzarEstado(pedido);
         } else {
+            Cliente cliente = pedido.getCliente();
+            cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue cancelado", pedido);
             Cancelado cancelado = new Cancelado();
             pedido.setEstado(cancelado);
-            pedido.getCliente().recibirNotificacion("Tu pedido fue cancelado", pedido);
         }
     }
 

@@ -27,10 +27,10 @@ public class Factura {
     public void imprimirFactura() {
         System.out.println("Factura " + fecha);
         System.out.println("Monto: " + monto);
-        System.out.println("Metodo de pago: " + metodoPago);
+        System.out.println("Metodo de pago: " + metodoPago.getClass().getSimpleName());
         System.out.println("Detalles: ");
         for (IProducto p : detalles) {
-            System.out.println(p);
+            System.out.println(p.getDescripcion());
         }
     }
 
