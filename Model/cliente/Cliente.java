@@ -9,7 +9,9 @@ import pedido.Estado;
 import pedido.Pedido;
 import pedido.Pendiente;
 import producto.IProducto;
+import restaurante.Mozo;
 import restaurante.Restaurante;
+import restaurante.Staff;
 
 import java.io.*;
 import java.util.*;
@@ -50,11 +52,6 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getEmailNombre() {
-        String emailCompleto = email.getUsername() + email.getDomain();
-        return emailCompleto;
-    }
-
     public void setEmail(Email email) {
         this.email = email;
     }
@@ -67,12 +64,14 @@ public class Cliente {
         this.historialPedidos = historialPedidos;
     }
 
-    public void realizarPedido(Restaurante restaurante, float total, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon) {
+    public Pedido realizarPedido(Restaurante restaurante, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon) {
         Pendiente pendiente = new Pendiente();
         Pedido pedido = new Pedido(pendiente, metodoPago, productos, cupon, this);
         historialPedidos.add(pedido);
+        System.out.println("Tu total: " + pedido.getTotal());
         pendiente.notificar();
         restaurante.gestionarPedidos(pedido);
+        return pedido;
     }
 
     public void cancelarPedido(Restaurante restaurante) {

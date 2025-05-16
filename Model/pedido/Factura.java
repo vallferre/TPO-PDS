@@ -39,6 +39,7 @@ public class Factura {
     }
 
     public void imprimirFactura() {
+        System.out.println("-----------------------------------");
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String fechaFormateada = fecha.format(formato);
         System.out.println("Factura " + fechaFormateada);

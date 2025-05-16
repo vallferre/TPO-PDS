@@ -1,5 +1,6 @@
 package restaurante;
 
+import cliente.Cliente;
 import pedido.Pedido;
 
 import java.io.*;
@@ -23,14 +24,35 @@ public class Restaurante {
     }
 
     public void gestionarPedidos(Pedido pedido) {
+        boolean mozoAsignado = false;
+        boolean adminAsignado = false;
+        boolean chefAsignado = false;
+
         for (Staff miembro : staff) {
-            if (miembro instanceof Mozo) {
-                Mozo mozo = (Mozo) miembro;
-                if (mozo.estaLibre()){
-                    mozo.asignarPedido(pedido);
-                }
+            if (!mozoAsignado && miembro instanceof Mozo mozo && mozo.estaLibre()) {
+                mozo.asignarPedido(pedido);
+                mozoAsignado = true;
+            } else if (!adminAsignado && miembro instanceof Administrativos admin && admin.estaLibre()) {
+                admin.asignarPedido(pedido);
+                adminAsignado = true;
+            } else if (!chefAsignado && miembro instanceof Chef chef && chef.estaLibre()) {
+                chef.asignarPedido(pedido);
+                chefAsignado = true;
+            }
+
+            if (mozoAsignado && adminAsignado && chefAsignado) {
+                break;
             }
         }
+    }
 
+    @Override
+    public String toString() {
+        return "Restaurante{" +
+                "idRestaurante=" + idRestaurante +
+                ", nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", staff=" + staff.size() + " personas" +
+                '}';
     }
 }

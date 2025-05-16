@@ -4,6 +4,8 @@ import cliente.Cliente;
 import cliente.ICuponAplicable;
 import pago.MetodoPago;
 import producto.IProducto;
+import restaurante.Administrativos;
+import restaurante.Chef;
 import restaurante.Mozo;
 import restaurante.Restaurante;
 
@@ -30,6 +32,10 @@ public class Pedido {
     private List<IProducto> productos;
 
     private Mozo mozoAsignado;
+
+    private Chef chefAsignado;
+
+    private Administrativos adminAsignado;
 
     private ICuponAplicable cuponAplicable;
 
@@ -106,6 +112,22 @@ public class Pedido {
         return cliente;
     }
 
+    public Chef getChefAsignado() {
+        return chefAsignado;
+    }
+
+    public void setChefAsignado(Chef chefAsignado) {
+        this.chefAsignado = chefAsignado;
+    }
+
+    public Administrativos getAdminAsignado() {
+        return adminAsignado;
+    }
+
+    public void setAdminAsignado(Administrativos adminAsignado) {
+        this.adminAsignado = adminAsignado;
+    }
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -119,10 +141,6 @@ public class Pedido {
         cuponAplicable = cupon;
         this.cliente = cliente;
         total = setTotal(productos);
-    }
-
-    public void asignarMozo(Mozo mozo){
-        mozoAsignado = mozo;
     }
 
     public boolean cobrar() {

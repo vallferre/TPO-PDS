@@ -7,18 +7,13 @@ import notificacion.NotificacionPush;
 import pago.MetodoPago;
 import pago.TarjetaCredito;
 import pago.TarjetaDebito;
-import pedido.Pedido;
-import pedido.Pendiente;
 import producto.CategoriaProducto;
 import producto.IProducto;
 import producto.Producto;
-import restaurante.Menu;
-import restaurante.Mozo;
-
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import restaurante.*;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -90,14 +85,32 @@ public class Main {
 
         System.out.println("-----------------------------------");
 
-        Email email = new Email("franco", "@gmail.com");
-        INotificable canalEmail = new NotificacionEmail(email);
-        Cliente cliente = new Cliente("Franco Lovera", email, canalEmail);
+        Email emailCliente = new Email("franco", "@gmail.com");
+        INotificable canalEmail = new NotificacionEmail(emailCliente);
+        Cliente cliente = new Cliente("Franco Lovera", emailCliente, canalEmail);
 
+        Email emailMozo = new Email("enrique", "@buensabor.com");
         INotificable notificacionPush = new NotificacionPush();
-        Mozo mozo = new Mozo("enrique",notificacionPush);
+        Staff mozo = new Mozo("enrique", "11223344", emailMozo, notificacionPush);
+
+        Email emailAdmin = new Email("maria", "@buensabor.com");
+        Staff admin = new Administrativos("María López", "12345678", emailAdmin);
+
+        Staff chef = new Chef("Carlos Gómez", "98765432", "Cocina Argentina");
+
+        List<Staff> personal = new ArrayList<>();
+        personal.add(admin);
+        personal.add(chef);
+        personal.add(mozo);
+
+        Restaurante restaurante = new Restaurante(1, "El Buen Sabor", "Av. Siempreviva 123", personal);
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
+
+        System.out.println("Tu pedido:");
+        for (IProducto p : productosSeleccionados) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/yy");
         YearMonth vencimiento = YearMonth.parse("12/26", formato);
@@ -105,15 +118,20 @@ public class Main {
 
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
-        Pedido pedido = new Pedido(
-                new Pendiente(),                    // Estado inicial
-                tarjeta,                            // método de pago
-                productosSeleccionados,            // productos
-                cupon,                               // cupón aplicable
-                cliente
-        );
+        cliente.realizarPedido(restaurante, tarjeta, productosSeleccionados, cupon);
 
-        mozo.asignarPedido(pedido);
+        System.out.println(mozo);
+        System.out.println("-----------------------------------");
+        System.out.println(admin);
+        System.out.println("-----------------------------------");
+        System.out.println(chef);
+
+        System.out.println("-----------------------------------");
+
+        System.out.println("Productos del menú:");
+        for (IProducto p : menu.getListaProductos()) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
 
         System.out.println("-----------------------------------");
 
@@ -128,24 +146,21 @@ public class Main {
 
         List<IProducto> productosSeleccionados1 = List.of(empanada, limonada);
 
+        System.out.println("Tu pedido:");
+        for (IProducto p : productosSeleccionados1) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
+
         Cliente cliente1 = new Cliente("Insaurralde Ciro", email1, canalEmail1);
 
-        Pedido pedido1 = new Pedido(
-                new Pendiente(),                    // Estado inicial
-                td,                            // método de pago
-                productosSeleccionados1,            // productos
-                null,                               // cupón aplicable
-                cliente1
-        );
+        cliente1.realizarPedido(restaurante, td, productosSeleccionados1, null);
 
         System.out.println("Cliente: " + cliente1.getNombre());
-        System.out.println("Email: " + cliente1.getEmailNombre());
+        System.out.println("Email: " + email1);
         for (IProducto p : productosSeleccionados1) {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
 
         System.out.println("-----------------------------------");
-
-        mozo.asignarPedido(pedido1);
     }
 }

@@ -29,4 +29,12 @@ public class Email {
     public void setDomain(String domain) {
         this.domain = domain;
     }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "username='" + username + '\'' +
+                ", domain='" + domain + '\'' +
+                '}';
+    }
 }

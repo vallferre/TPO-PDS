@@ -33,21 +33,12 @@ public class Cobro {
 
         boolean pagoExitoso = metodoPago.procesarPago(monto);
 
-        if (pagoExitoso) {
-            generarFactura();
-        }
-
         return pagoExitoso;
     }
 
     public float aplicarCupon() {
         float nuevoTotal = cupon.aplicarDescuento(monto);
         return nuevoTotal;
-    }
-
-    public void generarFactura() {
-        Factura factura = new Factura(monto, metodoPago, detalles, cupon);
-        factura.imprimirFactura();
     }
 
 }
