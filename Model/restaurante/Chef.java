@@ -5,6 +5,7 @@ import pedido.Estado;
 import pedido.Pedido;
 
 import java.io.*;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Chef extends Staff {
@@ -97,15 +98,44 @@ public class Chef extends Staff {
     }
 
     public void liberar(Pedido pedido) {
-        ocupado = false;
-        pedidosAsignados.remove(pedido);
-        this.pedido = null;
+        if (this.pedido != null){
+            LocalTime ahora = LocalTime.now();
+            LocalTime horaProgramada = pedido.getHoraProgramada();
+            if (pedido.isEsProgramado()){
+                if (ahora.isBefore(horaProgramada)){
+                    System.out.println("No tiene staff programado hasta su hora (" + horaProgramada + ").");
+                    return;
+                }
+            }
+            ocupado = false;
+            pedidosAsignados.remove(pedido);
+            this.pedido = null;
+        }
     }
 
     @Override
-    public void actualizarEstado(Estado estado) {
+    public void actualizarEstado(Estado nuevoEstado) {
+        if (this.pedido == null) {
+            System.out.println("No hay pedido asignado a este " + this.getClass().getSimpleName());
+            return;
+        }
+
+        // Verificamos si el pedido es programado
+        if (pedido.isEsProgramado()) {
+            LocalTime ahora = LocalTime.now();
+            LocalTime horaProgramada = pedido.getHoraProgramada();
+
+            if (ahora.isBefore(horaProgramada)) {
+                System.out.println("No se puede avanzar el estado del pedido programado hasta su hora (" + horaProgramada + ").");
+                return;
+            }
+        }
+
+        // Si pasó la hora o no es programado, se permite actualizar
+        pedido.setEstado(nuevoEstado);
         pedido.getEstado().avanzarEstado(pedido);
     }
+
 
     @Override
     public String toString() {
@@ -114,6 +144,9 @@ public class Chef extends Staff {
                 ", nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
                 ", especialidad='" + especialidad + '\'' +
+                ", ocupado=" + ocupado +
+                ", pedido=" + pedido +
+                ", pedidosAsignados=" + pedidosAsignados +
                 '}';
     }
 }

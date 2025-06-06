@@ -17,7 +17,7 @@ public class NotificacionPush implements INotificable {
     @Override
     public void notificar(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
         if (cliente.getPlataforma() instanceof AppMobile){
-            System.out.println(mensaje + pedido.getNombreEstado());
+            System.out.println(mensaje);
         }
     }
 

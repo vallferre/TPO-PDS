@@ -1,5 +1,7 @@
 package pedido;
 
+import pago.MetodoPago;
+
 import java.io.*;
 import java.util.*;
 
@@ -15,12 +17,13 @@ public class Cancelado extends Estado {
 
     public String getRazon(Pedido pedido){
         String mensaje = "";
-        if(pedido.getMetodoPago().procesarPago(pedido.getTotal()) == false){
+        MetodoPago metodoPago = pedido.getMetodoPago();
+        if(metodoPago.procesarPago(pedido.getTotal()) == false){
             mensaje = "Razon: Fondos insuficientes";
             return mensaje;
         } else {
             double montoRetornar = (pedido.getTotal())*0.75;
-            mensaje = "Pedido cancelado, monto retornado: " + montoRetornar;
+            mensaje = "Pedido cancelado, monto retornado: " + Math.round(montoRetornar*100.0)/100.0;
         }
         return mensaje;
     }
@@ -28,6 +31,8 @@ public class Cancelado extends Estado {
     public void avanzarEstado(Pedido pedido) {
         pedido.setEstado(this);
         pedido.getMozoAsignado().liberar(pedido);
-        pedido.getCliente().recibirNotificacion(pedido.getCliente().getNombre() + " Tu pedido fue cancelado. " + getRazon(pedido) + ". ",  pedido, pedido.getCliente(), pedido.getMozoAsignado());
+        pedido.getAdminAsignado().liberar(pedido);
+        pedido.getChefAsignado().liberar(pedido);
+        pedido.getCliente().recibirNotificacion(pedido.getCliente().getNombre() + ". " + getRazon(pedido) + ". ",  pedido, pedido.getCliente(), pedido.getMozoAsignado());
     }
 }

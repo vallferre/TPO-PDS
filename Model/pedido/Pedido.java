@@ -10,10 +10,7 @@ import restaurante.Mozo;
 import restaurante.Restaurante;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.YearMonth;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -25,7 +22,7 @@ public class Pedido {
 
     private Estado estado;
 
-    private float total;
+    private double total;
 
     private MetodoPago metodoPago;
 
@@ -43,26 +40,24 @@ public class Pedido {
 
     private String detalles;
 
-    private LocalDateTime horaProgramada;
+    private LocalTime horaProgramada;
 
     private boolean esProgramado;
 
     private Restaurante restaurante;
 
+    private boolean activado = false;
+
+    public boolean isActivado() {
+        return activado;
+    }
+
+    public void setActivado(boolean activado) {
+        this.activado = activado;
+    }
+
     public String getIdPedido() {
         return idPedido;
-    }
-
-    public void setIdPedido(String idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public String getNumeroOrden() {
-        return numeroOrden;
-    }
-
-    public void setNumeroOrden(String numeroOrden) {
-        this.numeroOrden = numeroOrden;
     }
 
     public Estado getEstado() {
@@ -71,31 +66,27 @@ public class Pedido {
 
     public void setEstado(Estado estado) {this.estado = estado;}
 
-    public float getTotal() {
+    public double getTotal() {
         return total;
     }
 
-    public float setTotal(List<IProducto> productos) {
+    public double calcularTotal(List<IProducto> productos) {
         for (IProducto producto : productos) {
             total += producto.getPrecio();
         }
         return total;
     }
 
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public MetodoPago getMetodoPago() {
         return metodoPago;
     }
 
-    public void setMetodoPago(MetodoPago metodoPago) {
-        this.metodoPago = metodoPago;
-    }
-
     public List<IProducto> getProductos() {
         return productos;
-    }
-
-    public void setProductos(List<IProducto> productos) {
-        this.productos = productos;
     }
 
     public Mozo getMozoAsignado() {
@@ -108,10 +99,6 @@ public class Pedido {
 
     public ICuponAplicable getCuponAplicable() {
         return cuponAplicable;
-    }
-
-    public void setCuponAplicable(ICuponAplicable cuponAplicable) {
-        this.cuponAplicable = cuponAplicable;
     }
 
     public Cliente getCliente() {
@@ -150,7 +137,15 @@ public class Pedido {
         this.restaurante = restaurante;
     }
 
-    public Pedido(Estado estado, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente, LocalDateTime horaProgramada, Restaurante restaurante) {
+    public boolean isEsProgramado() {
+        return esProgramado;
+    }
+
+    public LocalTime getHoraProgramada() {
+        return horaProgramada;
+    }
+
+    public Pedido(Estado estado, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente, LocalTime horaProgramada, Restaurante restaurante) {
         this.idPedido = UUID.randomUUID().toString();
         this.numeroOrden = UUID.randomUUID().toString();
         this.estado = estado;
@@ -158,7 +153,7 @@ public class Pedido {
         this.productos = productos;
         cuponAplicable = cupon;
         this.cliente = cliente;
-        total = setTotal(productos);
+        total = calcularTotal(productos);
         this.horaProgramada = horaProgramada;
         if (horaProgramada != null) {
             esProgramado = true;
@@ -169,15 +164,8 @@ public class Pedido {
     public boolean cobrar() {
         Cobro cobro = new Cobro(total, metodoPago, productos, cuponAplicable);
 
-        boolean exito = cobro.irAPagar(cliente.getPlataforma());
+        boolean exito = cobro.irAPagar(this, cliente.getPlataforma());
 
         return exito;
-    }
-
-    public boolean debeActivarse() {
-        if (esProgramado) {
-            return true;
-        }
-        return false;
     }
 }

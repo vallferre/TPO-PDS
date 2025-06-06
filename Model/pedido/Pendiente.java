@@ -25,15 +25,11 @@ public class Pendiente extends Estado {
         boolean cobroExitoso = pedido.cobrar();
         if (cobroExitoso) {
             System.out.println("Tiempo estimado: " + calcularTiempo(pedido) + " minutos");
-            Procesando procesando = new Procesando();
             Cliente cliente = pedido.getCliente();
             cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue aceptado. ", pedido, pedido.getCliente(), pedido.getMozoAsignado());
-            pedido.setEstado(procesando);
-            pedido.getEstado().avanzarEstado(pedido);
         } else {
             Cliente cliente = pedido.getCliente();
             Cancelado cancelado = new Cancelado();
-            pedido.setEstado(cancelado);
             cliente.recibirNotificacion(cliente.getNombre() + " Tu pedido fue cancelado. " + cancelado.getRazon(pedido) + ". ",  pedido, pedido.getCliente(), pedido.getMozoAsignado());
         }
     }

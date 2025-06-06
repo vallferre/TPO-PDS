@@ -1,5 +1,6 @@
 package pedido;
 
+import cliente.Cliente;
 import cliente.ICuponAplicable;
 import pago.MetodoPago;
 import producto.IProducto;
@@ -12,6 +13,8 @@ import java.util.*;
 
 public class Factura {
 
+    private Cliente cliente;
+
     private LocalDateTime fecha;
 
     private double monto;
@@ -22,7 +25,8 @@ public class Factura {
 
     private ICuponAplicable cupon;
 
-    public Factura(double monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
+    public Factura(Cliente cliente, double monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
+        this.cliente = cliente;
         this.fecha = LocalDateTime.now();
         this.monto = monto;
         this.metodoPago = metodoPago;
@@ -43,10 +47,11 @@ public class Factura {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         String fechaFormateada = fecha.format(formato);
         System.out.println("Factura " + fechaFormateada);
+        System.out.println(cliente.getNombre());
         if (cupon != null){
             System.out.println("Descuento: " + cupon.getPorcentajeDto() + "%");
         }
-        System.out.println("Monto: " + monto);
+        System.out.println("Monto: " + Math.round(monto * 100.0)/100.0);
         System.out.println("Metodo de pago: " + metodoPago.getClass().getSimpleName());
         System.out.println("Detalles: ");
         for (IProducto p : detalles) {

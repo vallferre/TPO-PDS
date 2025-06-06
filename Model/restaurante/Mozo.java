@@ -7,6 +7,7 @@ import pedido.Estado;
 import pedido.Pedido;
 
 import java.io.*;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Mozo extends Staff {
@@ -102,18 +103,46 @@ public class Mozo extends Staff {
         pedidosAsignados.add(pedido);
         pedido.setMozoAsignado(this);
         this.pedido = pedido;
-        pedido.getEstado().avanzarEstado(pedido);
     }
 
     public void liberar(Pedido pedido) {
-        ocupado = false;
-        pedidosAsignados.remove(pedido);
-        this.pedido = null;
+        if (this.pedido != null){
+            LocalTime ahora = LocalTime.now();
+            LocalTime horaProgramada = pedido.getHoraProgramada();
+            if (pedido.isEsProgramado()){
+                if (ahora.isBefore(horaProgramada)){
+                    System.out.println("No tiene staff programado hasta su hora (" + horaProgramada + ").");
+                    return;
+                }
+            }
+            ocupado = false;
+            pedidosAsignados.remove(pedido);
+            this.pedido = null;
+        }
     }
+
     @Override
-    public void actualizarEstado(Estado estado) {
+    public void actualizarEstado(Estado nuevoEstado) {
+        if (this.pedido == null) {
+            System.out.println("No hay pedido asignado a este " + this.getClass().getSimpleName());
+            return;
+        }
+
+        // Verificamos si el pedido es programado
+        if (pedido.isEsProgramado()) {
+            LocalTime ahora = LocalTime.now();
+            LocalTime horaProgramada = pedido.getHoraProgramada();
+
+            if (ahora.isBefore(horaProgramada)) {
+                System.out.println("No se puede avanzar el estado del pedido programado hasta su hora (" + horaProgramada + ").");
+                return;
+            }
+        }
+
+        pedido.setEstado(nuevoEstado);
         pedido.getEstado().avanzarEstado(pedido);
     }
+
 
     public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
         canal.notificar(mensaje, pedido, cliente, staff);
@@ -132,6 +161,10 @@ public class Mozo extends Staff {
                 ", nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
                 ", email=" + email +
+                ", ocupado=" + ocupado +
+                ", pedido=" + pedido +
+                ", canal=" + canal +
+                ", pedidosAsignados=" + pedidosAsignados +
                 '}';
     }
 }

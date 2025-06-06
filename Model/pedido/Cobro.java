@@ -21,20 +21,22 @@ public class Cobro {
 
     private List<IProducto> detalles;
 
-    public Cobro(float monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
+    public Cobro(double monto, MetodoPago metodoPago, List<IProducto> detalles, ICuponAplicable cupon) {
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.detalles = detalles;
         this.cupon = cupon;
     }
 
-    public boolean irAPagar(Plataforma plataforma) {
+    public boolean irAPagar(Pedido pedido, Plataforma plataforma) {
         if (cupon != null && plataforma.getClass() != Totem.class) {
             monto = aplicarCupon();
         }
 
         boolean pagoExitoso = metodoPago.procesarPago(monto);
-
+        if (pagoExitoso){
+            pedido.setTotal(monto);
+        }
         return pagoExitoso;
     }
 

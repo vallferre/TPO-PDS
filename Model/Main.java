@@ -5,6 +5,7 @@ import notificacion.INotificable;
 import notificacion.NotificacionEmail;
 import notificacion.NotificacionPush;
 import pago.*;
+import pedido.*;
 import plataforma.AppMobile;
 import plataforma.Plataforma;
 import plataforma.Totem;
@@ -12,6 +13,7 @@ import producto.CategoriaProducto;
 import producto.IProducto;
 import producto.Producto;
 import restaurante.*;
+import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -114,6 +116,8 @@ public class Main {
 
         Restaurante restaurante = new Restaurante(1, "El Buen Sabor", "Av. Siempreviva 123", personal);
 
+        GestorPedidosProgramados.inicializar(restaurante);
+
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
 
         System.out.println(mozo);
@@ -135,7 +139,16 @@ public class Main {
         MetodoPago metodoPago = new PagoConTarjeta(tarjeta);
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
-        cliente.realizarPedido(restaurante, metodoPago, productosSeleccionados, cupon);
+        cliente.realizarPedido(restaurante, metodoPago, productosSeleccionados, cupon, null);
+
+        admin.actualizarEstado(new Pendiente());
+
+        mozo.actualizarEstado(new Procesando());
+
+        admin.actualizarEstado(new Entregado());
+
+
+
 
         System.out.println("Productos del menú:");
         for (IProducto p : menu.getListaProductos()) {
@@ -162,17 +175,27 @@ public class Main {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
 
-        Cliente cliente1 = new Cliente("Insaurralde Ciro", email1, canalEmail1, totem);
+        Cliente ciro = new Cliente("Insaurralde Ciro", email1, canalEmail1, totem);
 
-        cliente1.realizarPedido(restaurante, metodoPago1, productosSeleccionados1, cupon);
+        ciro.realizarPedido(restaurante, metodoPago1, productosSeleccionados1, cupon, LocalTime.of(20, 0));
 
-        System.out.println("Cliente: " + cliente1.getNombre());
+        System.out.println("Cliente: " + ciro.getNombre());
         System.out.println("Email: " + email1);
         for (IProducto p : productosSeleccionados1) {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
 
         System.out.println("-----------------------------------");
+
+        admin.actualizarEstado(new Pendiente());
+
+        mozo.actualizarEstado(new Procesando());
+
+        admin.actualizarEstado(new Entregado());
+
+
+
+
 
         System.out.println("Productos del menú:");
         for (IProducto p : menu.getListaProductos()) {
@@ -183,7 +206,7 @@ public class Main {
 
         Email puliEmail = new Email("puli04", "@gmail.com");
 
-        INotificable puliCanal = new NotificacionEmail(email1);
+        INotificable puliCanal = new NotificacionEmail(puliEmail);
 
         DateTimeFormatter puliFormat = DateTimeFormatter.ofPattern("MM/yy");
         YearMonth puliVto = YearMonth.parse("12/26", puliFormat);
@@ -201,8 +224,15 @@ public class Main {
 
         Cliente puli = new Cliente("Pulido Agustin", puliEmail, puliCanal, appMovil);
 
-        puli.realizarPedido(restaurante, puliMP, puliCompra, cupon);
+        puli.realizarPedido(restaurante, puliMP, puliCompra, cupon, null);
+
+        admin.actualizarEstado(new Pendiente());
+
         puli.cancelarPedido();
+
+        mozo.actualizarEstado(new Procesando());
+
+        admin.actualizarEstado(new Entregado());
 
         System.out.println("Cliente: " + puli.getNombre());
         System.out.println("Email: " + puliEmail);

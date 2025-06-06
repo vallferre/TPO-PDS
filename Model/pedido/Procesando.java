@@ -22,15 +22,17 @@ public class Procesando extends Estado {
     }
 
     public void avanzarEstado(Pedido pedido) {
-
-        pedido.getCliente().recibirNotificacion("Tu pedido está en preparación. ", pedido, pedido.getCliente(), pedido.getMozoAsignado());
-        System.out.println("Tiempo estimado: " + calcularTiempo(pedido) + " minutos");
-        if (pedido.getMozoAsignado() != null) {
-            Mozo mozo = pedido.getMozoAsignado();
-            mozo.recibirNotificacion(mozo.getClass().getSimpleName() + " El pedido #" + pedido.getIdPedido() + " está listo para entregar. ", pedido, pedido.getCliente(), mozo);
+        if (!(pedido.getEstado() instanceof Cancelado)){
+            pedido.getCliente().recibirNotificacion("Tu pedido está en preparación. ", pedido, pedido.getCliente(), pedido.getMozoAsignado());
+            System.out.println("Tiempo estimado: " + calcularTiempo(pedido) + " minutos");
+            if (pedido.getMozoAsignado() != null) {
+                Mozo mozo = pedido.getMozoAsignado();
+                mozo.recibirNotificacion(mozo.getClass().getSimpleName() + " El pedido #" + pedido.getIdPedido() + " está listo para entregar. ", pedido, pedido.getCliente(), mozo);
+                Enviado enviado = new Enviado();
+                mozo.actualizarEstado(enviado);
+            }
+        } else {
+            System.out.println("El pedido fue cancelado.");
         }
-        Enviado enviado = new Enviado();
-        pedido.setEstado(enviado);
-        pedido.getEstado().avanzarEstado(pedido);
     }
 }
