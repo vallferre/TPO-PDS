@@ -8,12 +8,14 @@ import pedido.Cancelado;
 import pedido.Estado;
 import pedido.Pedido;
 import pedido.Pendiente;
+import plataforma.Plataforma;
 import producto.IProducto;
 import restaurante.Mozo;
 import restaurante.Restaurante;
 import restaurante.Staff;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Cliente {
@@ -28,12 +30,17 @@ public class Cliente {
 
     private INotificable canal;
 
-    public Cliente(String nombre, Email email, INotificable canal) {
+    private LocalDateTime horaProgramada;
+
+    private Plataforma plataforma;
+
+    public Cliente(String nombre, Email email, INotificable canal, Plataforma plataforma) {
         this.idCliente = UUID.randomUUID().toString();
         this.nombre = nombre;
         this.email = email;
         this.historialPedidos = new ArrayList<>();
         this.canal = canal;
+        this.plataforma = plataforma;
     }
 
     public String getIdCliente() {
@@ -64,24 +71,51 @@ public class Cliente {
         this.historialPedidos = historialPedidos;
     }
 
+    public Email getEmail() {
+        return email;
+    }
+
+    public INotificable getCanal() {
+        return canal;
+    }
+
+    public void setCanal(INotificable canal) {
+        this.canal = canal;
+    }
+
+    public LocalDateTime getHoraProgramada() {
+        return horaProgramada;
+    }
+
+    public void setHoraProgramada(LocalDateTime horaProgramada) {
+        this.horaProgramada = horaProgramada;
+    }
+
+    public Plataforma getPlataforma() {
+        return plataforma;
+    }
+
+    public void setPlataforma(Plataforma plataforma) {
+        this.plataforma = plataforma;
+    }
+
     public Pedido realizarPedido(Restaurante restaurante, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon) {
         Pendiente pendiente = new Pendiente();
-        Pedido pedido = new Pedido(pendiente, metodoPago, productos, cupon, this);
+        Pedido pedido = new Pedido(pendiente, metodoPago, productos, cupon, this, horaProgramada, restaurante);
         historialPedidos.add(pedido);
         System.out.println("Tu total: " + pedido.getTotal());
-        pendiente.notificar();
         restaurante.gestionarPedidos(pedido);
         return pedido;
     }
 
-    public void cancelarPedido(Restaurante restaurante) {
-        Cancelado cancelado = new Cancelado();
+    public void cancelarPedido() {
         Pedido ultimoPedido = historialPedidos.getLast();
-        ultimoPedido.setEstado(cancelado);
+        Estado estado = ultimoPedido.getEstado();
+        estado.avanzarEstado(ultimoPedido);
     }
 
-    public void recibirNotificacion(String mensaje, Pedido pedido) {
-        canal.notificar(mensaje, pedido);
+    public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
+        canal.notificar(mensaje, pedido, cliente, staff);
     }
 
 }

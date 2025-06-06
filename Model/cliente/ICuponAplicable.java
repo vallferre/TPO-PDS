@@ -4,7 +4,7 @@ import pedido.Cobro;
 
 public interface ICuponAplicable {
 
-    float aplicarDescuento(float total);
+    double aplicarDescuento(double total);
 
     int getPorcentajeDto();
 }

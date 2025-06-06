@@ -20,13 +20,16 @@ public class Producto implements IProducto {
 
     private CategoriaProducto categoriaProducto;
 
-    public Producto(int idProducto, String nombre, String descripcion, float precio, List<String> alergenos, CategoriaProducto categoria) {
+    private int tiempoPreparacion;
+
+    public Producto(int idProducto, String nombre, String descripcion, float precio, List<String> alergenos, CategoriaProducto categoria, int tiempoPreparacion) {
         this.idProducto = idProducto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.alergenos = alergenos;
         this.categoriaProducto = categoria;
+        this.tiempoPreparacion = tiempoPreparacion;
     }
 
     @Override
@@ -47,5 +50,10 @@ public class Producto implements IProducto {
     @Override
     public int getId() {
         return idProducto;
+    }
+
+    @Override
+    public int getTiempoEstimado() {
+        return tiempoPreparacion;
     }
 }

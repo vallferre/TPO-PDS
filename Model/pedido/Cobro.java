@@ -3,6 +3,8 @@ package pedido;
 import cliente.CuponDescuento;
 import cliente.ICuponAplicable;
 import pago.MetodoPago;
+import plataforma.Plataforma;
+import plataforma.Totem;
 import producto.IProducto;
 import producto.Producto;
 
@@ -11,7 +13,7 @@ import java.util.*;
 
 public class Cobro {
 
-    private float monto;
+    private double monto;
 
     private MetodoPago metodoPago;
 
@@ -26,8 +28,8 @@ public class Cobro {
         this.cupon = cupon;
     }
 
-    public boolean irAPagar() {
-        if (cupon != null) {
+    public boolean irAPagar(Plataforma plataforma) {
+        if (cupon != null && plataforma.getClass() != Totem.class) {
             monto = aplicarCupon();
         }
 
@@ -36,8 +38,8 @@ public class Cobro {
         return pagoExitoso;
     }
 
-    public float aplicarCupon() {
-        float nuevoTotal = cupon.aplicarDescuento(monto);
+    public double aplicarCupon() {
+        double nuevoTotal = cupon.aplicarDescuento(monto);
         return nuevoTotal;
     }
 

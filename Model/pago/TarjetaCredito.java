@@ -5,19 +5,24 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 
-public class TarjetaCredito extends MetodoPago {
+public class TarjetaCredito extends Tarjeta{
 
-    public TarjetaCredito(String numeroTarjeta, String nombre, String direccion, YearMonth fechaExpiracion, int CVV) {
+    private double limite;
+
+    public TarjetaCredito(String numeroTarjeta, String nombre, String direccion, YearMonth fechaExpiracion, int CVV, double limite) {
         this.numeroTarjeta = numeroTarjeta;
         this.nombre = nombre;
         this.direccion = direccion;
         this.fechaExpiracion = fechaExpiracion;
         this.CVV = CVV;
+        this.limite = limite;
     }
 
     @Override
-    public boolean procesarPago(float monto) {
-        return true;
+    public boolean validarFondos(double monto) {
+        if (monto <= limite) {
+            return true;
+        }
+        return false;
     }
-
 }

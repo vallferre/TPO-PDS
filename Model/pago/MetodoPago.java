@@ -7,21 +7,9 @@ import java.util.*;
 
 public abstract class MetodoPago{
 
-    protected String numeroTarjeta;
-
-    protected String nombre;
-
-    protected String direccion;
-
-    protected YearMonth fechaExpiracion;
-
-    protected int CVV;
-
     public MetodoPago() {
     }
 
-    public boolean procesarPago(float monto) {
-        return false;
-    }
+    public abstract boolean procesarPago(double monto);
 
 }

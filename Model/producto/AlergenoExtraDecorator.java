@@ -15,6 +15,11 @@ public class AlergenoExtraDecorator extends ProductoDecorador {
     }
 
     @Override
+    public int getTiempoEstimado() {
+        return 0;
+    }
+
+    @Override
     public float getPrecio() {
         return super.getPrecio() + cargoExtra;
     }

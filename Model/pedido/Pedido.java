@@ -41,6 +41,14 @@ public class Pedido {
 
     private Cliente cliente;
 
+    private String detalles;
+
+    private LocalDateTime horaProgramada;
+
+    private boolean esProgramado;
+
+    private Restaurante restaurante;
+
     public String getIdPedido() {
         return idPedido;
     }
@@ -61,9 +69,7 @@ public class Pedido {
         return estado;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
+    public void setEstado(Estado estado) {this.estado = estado;}
 
     public float getTotal() {
         return total;
@@ -132,7 +138,19 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public Pedido(Estado estado,  MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente) {
+    public String getNombreEstado() {
+        return estado.getClass().getSimpleName();
+    }
+
+    public Restaurante getRestaurante() {
+        return restaurante;
+    }
+
+    public void setRestaurante(Restaurante restaurante) {
+        this.restaurante = restaurante;
+    }
+
+    public Pedido(Estado estado, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, Cliente cliente, LocalDateTime horaProgramada, Restaurante restaurante) {
         this.idPedido = UUID.randomUUID().toString();
         this.numeroOrden = UUID.randomUUID().toString();
         this.estado = estado;
@@ -141,18 +159,25 @@ public class Pedido {
         cuponAplicable = cupon;
         this.cliente = cliente;
         total = setTotal(productos);
+        this.horaProgramada = horaProgramada;
+        if (horaProgramada != null) {
+            esProgramado = true;
+        }
+        this.restaurante = restaurante;
     }
 
     public boolean cobrar() {
         Cobro cobro = new Cobro(total, metodoPago, productos, cuponAplicable);
 
-        boolean exito = cobro.irAPagar();
+        boolean exito = cobro.irAPagar(cliente.getPlataforma());
 
         return exito;
     }
 
-    public String getNombreEstado() {
-        return estado.getClass().getSimpleName();
+    public boolean debeActivarse() {
+        if (esProgramado) {
+            return true;
+        }
+        return false;
     }
-
 }

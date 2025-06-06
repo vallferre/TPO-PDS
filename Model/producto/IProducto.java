@@ -12,4 +12,6 @@ public interface IProducto {
     String getNombre();
 
     int getId();
+
+    int getTiempoEstimado();
 }

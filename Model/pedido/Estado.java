@@ -16,16 +16,11 @@ public abstract class Estado {
     public Estado() {
     }
 
+    public abstract int calcularTiempo(Pedido pedido);
+
     /**
      * @param pedido
      */
     public abstract void avanzarEstado(Pedido pedido);
-
-    /**
-     * @return
-     */
-    public void notificar() {
-        // TODO implement here
-    }
 
 }

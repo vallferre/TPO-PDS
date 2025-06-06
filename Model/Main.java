@@ -4,9 +4,10 @@ import cliente.Email;
 import notificacion.INotificable;
 import notificacion.NotificacionEmail;
 import notificacion.NotificacionPush;
-import pago.MetodoPago;
-import pago.TarjetaCredito;
-import pago.TarjetaDebito;
+import pago.*;
+import plataforma.AppMobile;
+import plataforma.Plataforma;
+import plataforma.Totem;
 import producto.CategoriaProducto;
 import producto.IProducto;
 import producto.Producto;
@@ -27,7 +28,8 @@ public class Main {
                 "Empanada criolla con carne picada, cebolla y huevo",
                 500.0f,
                 List.of("Gluten", "Huevo"),
-                CategoriaProducto.ENTRADA
+                CategoriaProducto.ENTRADA,
+                10
         );
 
         // Producto 2: Plato principal
@@ -37,7 +39,8 @@ public class Main {
                 "Milanesa de carne con papas fritas caseras",
                 1800.0f,
                 List.of("Gluten", "Huevo"),
-                CategoriaProducto.PLATO_PRINCIPAL
+                CategoriaProducto.PLATO_PRINCIPAL,
+                20
         );
 
         // Producto 3: Postre
@@ -47,7 +50,8 @@ public class Main {
                 "Helado artesanal de chocolate con almendras",
                 700.0f,
                 List.of("Lácteos", "Frutos secos"),
-                CategoriaProducto.POSTRE
+                CategoriaProducto.POSTRE,
+                5
         );
 
         // Producto 4: Bebida
@@ -57,7 +61,8 @@ public class Main {
                 "Limonada natural con menta y jengibre",
                 450.0f,
                 List.of(), // sin alérgenos
-                CategoriaProducto.BEBIDA
+                CategoriaProducto.BEBIDA,
+                1
         );
 
         // Producto 5: Plato vegetariano
@@ -67,8 +72,12 @@ public class Main {
                 "Lechuga, croutons, aderezo César sin anchoas, queso",
                 1200.0f,
                 List.of("Gluten", "Lácteos"),
-                CategoriaProducto.PLATO_PRINCIPAL
+                CategoriaProducto.PLATO_PRINCIPAL,
+                25
         );
+
+        Plataforma appMovil = new AppMobile();
+        Plataforma totem = new Totem();
 
         Menu menu = new Menu();
 
@@ -87,7 +96,7 @@ public class Main {
 
         Email emailCliente = new Email("franco", "@gmail.com");
         INotificable canalEmail = new NotificacionEmail(emailCliente);
-        Cliente cliente = new Cliente("Franco Lovera", emailCliente, canalEmail);
+        Cliente cliente = new Cliente("Franco Lovera", emailCliente, canalEmail, appMovil);
 
         Email emailMozo = new Email("enrique", "@buensabor.com");
         INotificable notificacionPush = new NotificacionPush();
@@ -107,6 +116,13 @@ public class Main {
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
 
+        System.out.println(mozo);
+        System.out.println("-----------------------------------");
+        System.out.println(admin);
+        System.out.println("-----------------------------------");
+        System.out.println(chef);
+        System.out.println("-----------------------------------");
+
         System.out.println("Tu pedido:");
         for (IProducto p : productosSeleccionados) {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
@@ -114,19 +130,12 @@ public class Main {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/yy");
         YearMonth vencimiento = YearMonth.parse("12/26", formato);
-        MetodoPago tarjeta = new TarjetaCredito("1234-5678-9876-5432", "Franco Lovera", "Av. Lima 757", vencimiento, 123);
+        Tarjeta tarjeta = new TarjetaCredito("1234-5678-9876-5432", "Franco Lovera", "Av. Lima 757", vencimiento, 123, 100000);
 
+        MetodoPago metodoPago = new PagoConTarjeta(tarjeta);
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
-        cliente.realizarPedido(restaurante, tarjeta, productosSeleccionados, cupon);
-
-        System.out.println(mozo);
-        System.out.println("-----------------------------------");
-        System.out.println(admin);
-        System.out.println("-----------------------------------");
-        System.out.println(chef);
-
-        System.out.println("-----------------------------------");
+        cliente.realizarPedido(restaurante, metodoPago, productosSeleccionados, cupon);
 
         System.out.println("Productos del menú:");
         for (IProducto p : menu.getListaProductos()) {
@@ -142,7 +151,9 @@ public class Main {
         DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("MM/yy");
         YearMonth vencimiento1 = YearMonth.parse("12/26", formato1);
 
-        TarjetaDebito td = new TarjetaDebito("1223-5178-9556-5434", "Ciro Insaurralde", "Av. Lima 757", vencimiento1, 123, 1.0f);
+        Tarjeta td = new TarjetaDebito("1223-5178-9556-5434", "Ciro Insaurralde", "Av. Lima 757", vencimiento1, 123, 1);
+
+        MetodoPago metodoPago1 = new PagoConMercadoPago(2000, td);
 
         List<IProducto> productosSeleccionados1 = List.of(empanada, limonada);
 
@@ -151,15 +162,50 @@ public class Main {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
 
-        Cliente cliente1 = new Cliente("Insaurralde Ciro", email1, canalEmail1);
+        Cliente cliente1 = new Cliente("Insaurralde Ciro", email1, canalEmail1, totem);
 
-        cliente1.realizarPedido(restaurante, td, productosSeleccionados1, null);
+        cliente1.realizarPedido(restaurante, metodoPago1, productosSeleccionados1, cupon);
 
         System.out.println("Cliente: " + cliente1.getNombre());
         System.out.println("Email: " + email1);
         for (IProducto p : productosSeleccionados1) {
             System.out.println(p.getNombre() + " - $" + p.getPrecio());
         }
+
+        System.out.println("-----------------------------------");
+
+        System.out.println("Productos del menú:");
+        for (IProducto p : menu.getListaProductos()) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
+
+        System.out.println("-----------------------------------");
+
+        Email puliEmail = new Email("puli04", "@gmail.com");
+
+        INotificable puliCanal = new NotificacionEmail(email1);
+
+        DateTimeFormatter puliFormat = DateTimeFormatter.ofPattern("MM/yy");
+        YearMonth puliVto = YearMonth.parse("12/26", puliFormat);
+
+        Tarjeta puliTarjeta = new TarjetaDebito("2333-5178-3455-5788", "Agustin Pulido", "Av. Lima 757", puliVto, 123, 10000);
+
+        MetodoPago puliMP = new PagoConMercadoPago(2000, puliTarjeta);
+
+        List<IProducto> puliCompra = List.of(empanada, limonada);
+
+        System.out.println("Tu pedido:");
+        for (IProducto p : puliCompra) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
+
+        Cliente puli = new Cliente("Pulido Agustin", puliEmail, puliCanal, appMovil);
+
+        puli.realizarPedido(restaurante, puliMP, puliCompra, cupon);
+        puli.cancelarPedido();
+
+        System.out.println("Cliente: " + puli.getNombre());
+        System.out.println("Email: " + puliEmail);
 
         System.out.println("-----------------------------------");
     }

@@ -6,6 +6,9 @@ import java.util.*;
 import cliente.Cliente;
 import cliente.Email;
 import pedido.Pedido;
+import plataforma.AppMobile;
+import restaurante.Mozo;
+import restaurante.Staff;
 
 public class NotificacionEmail implements INotificable {
 
@@ -16,8 +19,10 @@ public class NotificacionEmail implements INotificable {
     }
 
     @Override
-    public void notificar(String mensaje, Pedido pedido) {
-        System.out.println("[EMAIL a " + emailDestino.getUsername() + emailDestino.getDomain() + "] " + mensaje + pedido.getNombreEstado());
+    public void notificar(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
+        if (cliente.getPlataforma() instanceof AppMobile) {
+            System.out.println("[EMAIL a " + emailDestino.getUsername() + emailDestino.getDomain() + "] " + mensaje + pedido.getNombreEstado());
+        }
     }
 
 }

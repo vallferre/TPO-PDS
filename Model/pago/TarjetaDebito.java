@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * 
  */
-public class TarjetaDebito extends MetodoPago {
+public class TarjetaDebito extends Tarjeta {
 
     private float fondos;
 
@@ -21,15 +21,7 @@ public class TarjetaDebito extends MetodoPago {
         this.fondos = fondos;
     }
 
-    @Override
-    public boolean procesarPago(float monto) {
-        if (validarFondos(monto)) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean validarFondos(float monto) {
+    public boolean validarFondos(double monto) {
         return this.fondos >= monto;
     }
 }

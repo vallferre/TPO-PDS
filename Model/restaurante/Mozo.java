@@ -1,5 +1,6 @@
 package restaurante;
 
+import cliente.Cliente;
 import cliente.Email;
 import notificacion.INotificable;
 import pedido.Estado;
@@ -114,8 +115,8 @@ public class Mozo extends Staff {
         pedido.getEstado().avanzarEstado(pedido);
     }
 
-    public void recibirNotificacion(String mensaje, Pedido pedido) {
-        canal.notificar(mensaje, pedido);
+    public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
+        canal.notificar(mensaje, pedido, cliente, staff);
     }
 
     public void getPedidosAsignados() {
