@@ -36,4 +36,16 @@ public class Menu {
     public List<IProducto> getListaProductos() {
         return listaProductos;
     }
+
+    public void listarProductos(){
+        for (IProducto p : getListaProductos()) {
+            System.out.println(p.getNombre() + " - $" + p.getPrecio());
+        }
+    }
+    @Override
+    public String toString() {
+        return "Menu{" +
+                "listaProductos=" + listaProductos +
+                '}';
+    }
 }

@@ -1,7 +1,7 @@
 package pago;
 
 public class PagoConGooglePay extends MetodoPago {
-    Tarjeta tarjeta;
+    private Tarjeta tarjeta;
     public PagoConGooglePay(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
     }

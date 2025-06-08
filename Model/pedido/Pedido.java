@@ -70,12 +70,6 @@ public class Pedido {
         return total;
     }
 
-    public double calcularTotal(List<IProducto> productos) {
-        for (IProducto producto : productos) {
-            total += producto.getPrecio();
-        }
-        return total;
-    }
 
     public void setTotal(double total) {
         this.total = total;
@@ -125,10 +119,6 @@ public class Pedido {
         this.cliente = cliente;
     }
 
-    public String getNombreEstado() {
-        return estado.getClass().getSimpleName();
-    }
-
     public Restaurante getRestaurante() {
         return restaurante;
     }
@@ -159,6 +149,13 @@ public class Pedido {
             esProgramado = true;
         }
         this.restaurante = restaurante;
+    }
+
+    public double calcularTotal(List<IProducto> productos) {
+        for (IProducto producto : productos) {
+            total += producto.getPrecio();
+        }
+        return total;
     }
 
     public boolean cobrar() {

@@ -34,14 +34,6 @@ public class Factura {
         this.cupon = cupon;
     }
 
-    public LocalDateTime getFechaEmision() {
-        return fecha;
-    }
-
-    public void setFechaEmision(LocalDateTime fechaEmision) {
-        this.fecha = fechaEmision;
-    }
-
     public void imprimirFactura() {
         System.out.println("-----------------------------------");
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");

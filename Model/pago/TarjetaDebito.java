@@ -5,12 +5,9 @@ import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.*;
 
-/**
- * 
- */
 public class TarjetaDebito extends Tarjeta {
 
-    private float fondos;
+    private double fondos;
 
     public TarjetaDebito(String numeroTarjeta, String nombre, String direccion, YearMonth fechaExpiracion, int CVV, float fondos) {
         this.numeroTarjeta = numeroTarjeta;

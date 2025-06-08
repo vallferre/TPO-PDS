@@ -31,6 +31,5 @@ public abstract class ProductoDecorador implements IProducto {
         return componente.getId();
     }
 
-    public void modificarPrecio() {
-    }
+    public abstract double modificarPrecio();
 }

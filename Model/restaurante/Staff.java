@@ -13,6 +13,12 @@ public abstract class Staff {
 
     protected String dni;
 
+    protected boolean ocupado;
+
+    protected Pedido pedido;
+
+    protected List<Pedido> pedidosAsignados;
+
     public Staff() {
     }
 
@@ -21,6 +27,8 @@ public abstract class Staff {
     public abstract void asignarPedido(Pedido pedido);
 
     public abstract boolean estaLibre();
+
+    public abstract void liberar(Pedido pedido);
 
     @Override
     public String toString() {

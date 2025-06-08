@@ -3,6 +3,7 @@ package restaurante;
 import cliente.Cliente;
 import pedido.Pedido;
 import pedido.Pendiente;
+import producto.IProducto;
 
 import java.io.*;
 import java.util.*;
@@ -17,13 +18,16 @@ public class Restaurante {
 
     private List<Staff> staff;
 
+    private Menu menu;
+
     private List<Pedido> pedidos = new ArrayList();
 
-    public Restaurante(int idRestaurante, String nombre, String direccion, List<Staff> staff) {
+    public Restaurante(int idRestaurante, String nombre, String direccion, List<Staff> staff, Menu menu) {
         this.idRestaurante = idRestaurante;
         this.nombre = nombre;
         this.direccion = direccion;
         this.staff = staff;
+        this.menu = menu;
     }
 
     public void gestionarPedidos(Pedido pedido) {
@@ -61,6 +65,7 @@ public class Restaurante {
                 ", nombre='" + nombre + '\'' +
                 ", direccion='" + direccion + '\'' +
                 ", staff=" + staff +
+                ", menu=" + menu +
                 ", pedidos=" + pedidos +
                 '}';
     }

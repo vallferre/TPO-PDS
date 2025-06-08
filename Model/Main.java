@@ -114,7 +114,10 @@ public class Main {
         personal.add(chef);
         personal.add(mozo);
 
-        Restaurante restaurante = new Restaurante(1, "El Buen Sabor", "Av. Siempreviva 123", personal);
+        Restaurante restaurante = new Restaurante(1, "El Buen Sabor", "Av. Siempreviva 123", personal, menu);
+
+        System.out.println("TEST");
+        System.out.println(restaurante);
 
         GestorPedidosProgramados.inicializar(restaurante);
 

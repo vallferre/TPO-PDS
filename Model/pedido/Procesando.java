@@ -16,7 +16,7 @@ public class Procesando extends Estado {
     public int calcularTiempo(Pedido pedido) {
         int total = 0;
         for (IProducto producto : pedido.getProductos()) {
-            total += producto.getTiempoEstimado(); // cada producto tiene tiempo estimado
+            total += producto.getTiempoEstimado();
         }
         return total;
     }

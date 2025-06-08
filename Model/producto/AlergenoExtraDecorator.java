@@ -40,8 +40,9 @@ public class AlergenoExtraDecorator extends ProductoDecorador {
     }
 
     @Override
-    public void modificarPrecio() {
-        // Si querés modificar dinámicamente el precio del cargo extra
-        this.cargoExtra *= 1.1f; // Ejemplo: aumenta un 10%
+    public double modificarPrecio() {
+        double precio = componente.getPrecio();
+        precio += cargoExtra;
+        return precio;
     }
 }
