@@ -119,7 +119,7 @@ public class Main {
         System.out.println("TEST");
         System.out.println(restaurante);
 
-        GestorPedidosProgramados.inicializar(restaurante);
+        GestorPedidos gestorPedidos = GestorPedidos.getInstancia(restaurante);
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
 
@@ -142,7 +142,7 @@ public class Main {
         MetodoPago metodoPago = new PagoConTarjeta(tarjeta);
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
-        cliente.realizarPedido(restaurante, metodoPago, productosSeleccionados, cupon, null);
+        Pedido francoPedido = gestorPedidos.crearPedido(restaurante, cliente, metodoPago, productosSeleccionados, cupon, null);
 
         admin.actualizarEstado(new Pendiente());
 
@@ -180,7 +180,7 @@ public class Main {
 
         Cliente ciro = new Cliente("Insaurralde Ciro", email1, canalEmail1, totem);
 
-        ciro.realizarPedido(restaurante, metodoPago1, productosSeleccionados1, cupon, LocalTime.of(20, 0));
+        Pedido ciroPedido = gestorPedidos.crearPedido(restaurante, ciro, metodoPago1, productosSeleccionados1, cupon, LocalTime.of(20, 0));
 
         System.out.println("Cliente: " + ciro.getNombre());
         System.out.println("Email: " + email1);
@@ -227,11 +227,11 @@ public class Main {
 
         Cliente puli = new Cliente("Pulido Agustin", puliEmail, puliCanal, appMovil);
 
-        puli.realizarPedido(restaurante, puliMP, puliCompra, cupon, null);
+        Pedido puliPedido = gestorPedidos.crearPedido(restaurante, puli, puliMP, puliCompra, cupon, null);
 
         admin.actualizarEstado(new Pendiente());
 
-        puli.cancelarPedido();
+        gestorPedidos.cancelarPedido(puliPedido);
 
         mozo.actualizarEstado(new Procesando());
 

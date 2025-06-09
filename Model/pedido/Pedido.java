@@ -165,4 +165,11 @@ public class Pedido {
 
         return exito;
     }
+
+    public void cancelar(){
+        Pedido ultimoPedido = cliente.getHistorialPedidos().getLast();
+        Cancelado cancelado = new Cancelado();
+        ultimoPedido.setEstado(cancelado);
+        ultimoPedido.getEstado().avanzarEstado(ultimoPedido);
+    }
 }

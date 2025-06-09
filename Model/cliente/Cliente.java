@@ -3,7 +3,7 @@ package cliente;
 import notificacion.INotificable;
 import pago.MetodoPago;
 import pedido.Cancelado;
-import pedido.GestorPedidosProgramados;
+import pedido.GestorPedidos;
 import pedido.Pedido;
 import pedido.Pendiente;
 import plataforma.Plataforma;
@@ -44,26 +44,8 @@ public class Cliente {
         return plataforma;
     }
 
-    public Pedido realizarPedido(Restaurante restaurante, MetodoPago metodoPago, List<IProducto> productos, ICuponAplicable cupon, LocalTime horaProgramada) {
-        Pendiente pendiente = new Pendiente();
-        Pedido pedido = new Pedido(pendiente, metodoPago, productos, cupon, this, horaProgramada, restaurante);
-        historialPedidos.add(pedido);
-        System.out.println("Tu total: " + pedido.getTotal());
-        if (pedido.isEsProgramado()) {
-            System.out.println("Pedido programado para las " + horaProgramada);
-            GestorPedidosProgramados.agregarPedido(pedido);
-        } else {
-            restaurante.gestionarPedidos(pedido);
-        }
-
-        return pedido;
-    }
-
-    public void cancelarPedido() {
-        Pedido ultimoPedido = historialPedidos.getLast();
-        Cancelado cancelado = new Cancelado();
-        ultimoPedido.setEstado(cancelado);
-        ultimoPedido.getEstado().avanzarEstado(ultimoPedido);
+    public List<Pedido> getHistorialPedidos() {
+        return historialPedidos;
     }
 
     public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
