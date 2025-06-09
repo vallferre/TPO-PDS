@@ -46,7 +46,7 @@ public class Pedido {
 
     private Restaurante restaurante;
 
-    private boolean activado = false;
+    private boolean activado;
 
     public boolean isActivado() {
         return activado;
@@ -147,6 +147,7 @@ public class Pedido {
         this.horaProgramada = horaProgramada;
         if (horaProgramada != null) {
             esProgramado = true;
+            activado = LocalTime.now().isAfter(horaProgramada);
         }
         this.restaurante = restaurante;
     }

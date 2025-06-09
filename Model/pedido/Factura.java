@@ -40,6 +40,7 @@ public class Factura {
         String fechaFormateada = fecha.format(formato);
         System.out.println("Factura " + fechaFormateada);
         System.out.println(cliente.getNombre());
+        System.out.println("Plataforma: " + cliente.getPlataforma().getClass().getSimpleName());
         if (cupon != null){
             System.out.println("Descuento: " + cupon.getPorcentajeDto() + "%");
         }

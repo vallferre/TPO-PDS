@@ -119,7 +119,6 @@ public class Main {
         System.out.println(restaurante);
 
         GestorPedidos gestorPedidos = GestorPedidos.getInstancia(restaurante);
-        MetodoPagoFactory factory = new MetodoPagoFactory();
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
 
@@ -130,9 +129,9 @@ public class Main {
 
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("MM/yy");
         YearMonth vencimiento = YearMonth.parse("12/26", formato);
-        Tarjeta tarjeta = new TarjetaCredito("1234-5678-9876-5432", "Franco Lovera", "Av. Lima 757", vencimiento, 123, 100000);
 
-        MetodoPago metodoPago = factory.crearMetodoPago("tarjeta", tarjeta, null);
+        MetodoPagoFactory tarjetaFactory = new TarjetaFactory(new TarjetaCredito("1234-5678-9876-5432", "Franco Lovera", "Av. Lima 757", vencimiento, 123, 100000));
+        MetodoPago metodoPago = tarjetaFactory.crearMetodoPago();
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
         Pedido francoPedido = gestorPedidos.crearPedido(restaurante, cliente, metodoPago, productosSeleccionados, cupon, null);
@@ -157,7 +156,8 @@ public class Main {
 
         INotificable canalEmail1 = new NotificacionEmail(email1);
 
-        MetodoPago ciroPago = factory.crearMetodoPago("efectivo", null, 2000.0);
+        MetodoPagoFactory efectivoFactory = new EfectivoFactory(2000.0);
+        MetodoPago ciroPago = efectivoFactory.crearMetodoPago();
 
         List<IProducto> productosSeleccionados1 = List.of(empanada, limonada);
 
@@ -204,7 +204,8 @@ public class Main {
 
         Tarjeta puliTarjeta = new TarjetaDebito("2333-5178-3455-5788", "Agustin Pulido", "Av. Lima 757", puliVto, 123, 10000);
 
-        MetodoPago puliMP = factory.crearMetodoPago("mercadopago", puliTarjeta, 2000.0);
+        MetodoPagoFactory mpFactory = new MPFactory(2000.0, puliTarjeta);
+        MetodoPago puliMP = mpFactory.crearMetodoPago();
 
         List<IProducto> puliCompra = List.of(empanada, limonada);
 

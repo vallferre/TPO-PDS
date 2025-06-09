@@ -37,8 +37,14 @@ public class GestorPedidos implements Runnable {
         pedidos.add(pedido);
         cliente.getHistorialPedidos().add(pedido);
         if (pedido.isEsProgramado()) {
-            pedidosProgramados.add(pedido);
-            System.out.println("Pedido programado para " + horaProgramada);
+            if (!(LocalTime.now().isAfter(horaProgramada))){
+                pedidosProgramados.add(pedido);
+                System.out.println("Pedido programado para " + horaProgramada);
+            } else {
+                System.out.println("Pedido programado para " + horaProgramada);
+                restaurante.gestionarPedidos(pedido);
+                System.out.println("Pedido enviado al restaurante");
+            }
         } else {
             restaurante.gestionarPedidos(pedido);
             System.out.println("Pedido enviado al restaurante");
@@ -69,7 +75,7 @@ public class GestorPedidos implements Runnable {
             }
 
             try {
-                Thread.sleep(30000); // cada 30 segundos
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 break;
             }
