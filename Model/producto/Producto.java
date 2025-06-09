@@ -56,4 +56,17 @@ public class Producto implements IProducto {
     public int getTiempoEstimado() {
         return tiempoPreparacion;
     }
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "idProducto=" + idProducto +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", alergenos=" + alergenos +
+                ", categoriaProducto=" + categoriaProducto +
+                ", tiempoPreparacion=" + tiempoPreparacion +
+                '}';
+    }
 }

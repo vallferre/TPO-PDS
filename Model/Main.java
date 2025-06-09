@@ -116,19 +116,12 @@ public class Main {
 
         Restaurante restaurante = new Restaurante(1, "El Buen Sabor", "Av. Siempreviva 123", personal, menu);
 
-        System.out.println("TEST");
         System.out.println(restaurante);
 
         GestorPedidos gestorPedidos = GestorPedidos.getInstancia(restaurante);
+        MetodoPagoFactory factory = new MetodoPagoFactory();
 
         List<IProducto> productosSeleccionados = List.of(empanada, limonada);
-
-        System.out.println(mozo);
-        System.out.println("-----------------------------------");
-        System.out.println(admin);
-        System.out.println("-----------------------------------");
-        System.out.println(chef);
-        System.out.println("-----------------------------------");
 
         System.out.println("Tu pedido:");
         for (IProducto p : productosSeleccionados) {
@@ -139,7 +132,7 @@ public class Main {
         YearMonth vencimiento = YearMonth.parse("12/26", formato);
         Tarjeta tarjeta = new TarjetaCredito("1234-5678-9876-5432", "Franco Lovera", "Av. Lima 757", vencimiento, 123, 100000);
 
-        MetodoPago metodoPago = new PagoConTarjeta(tarjeta);
+        MetodoPago metodoPago = factory.crearMetodoPago("tarjeta", tarjeta, null);
         CuponDescuento cupon = new CuponDescuento("DESCUENTO10", 10, new Date()); // descuento del 10%
 
         Pedido francoPedido = gestorPedidos.crearPedido(restaurante, cliente, metodoPago, productosSeleccionados, cupon, null);
@@ -164,12 +157,7 @@ public class Main {
 
         INotificable canalEmail1 = new NotificacionEmail(email1);
 
-        DateTimeFormatter formato1 = DateTimeFormatter.ofPattern("MM/yy");
-        YearMonth vencimiento1 = YearMonth.parse("12/26", formato1);
-
-        Tarjeta td = new TarjetaDebito("1223-5178-9556-5434", "Ciro Insaurralde", "Av. Lima 757", vencimiento1, 123, 1);
-
-        MetodoPago metodoPago1 = new PagoConMercadoPago(2000, td);
+        MetodoPago ciroPago = factory.crearMetodoPago("efectivo", null, 2000.0);
 
         List<IProducto> productosSeleccionados1 = List.of(empanada, limonada);
 
@@ -180,7 +168,7 @@ public class Main {
 
         Cliente ciro = new Cliente("Insaurralde Ciro", email1, canalEmail1, totem);
 
-        Pedido ciroPedido = gestorPedidos.crearPedido(restaurante, ciro, metodoPago1, productosSeleccionados1, cupon, LocalTime.of(20, 0));
+        Pedido ciroPedido = gestorPedidos.crearPedido(restaurante, ciro, ciroPago, productosSeleccionados1, cupon, LocalTime.of(20, 0));
 
         System.out.println("Cliente: " + ciro.getNombre());
         System.out.println("Email: " + email1);
@@ -216,7 +204,7 @@ public class Main {
 
         Tarjeta puliTarjeta = new TarjetaDebito("2333-5178-3455-5788", "Agustin Pulido", "Av. Lima 757", puliVto, 123, 10000);
 
-        MetodoPago puliMP = new PagoConMercadoPago(2000, puliTarjeta);
+        MetodoPago puliMP = factory.crearMetodoPago("mercadopago", puliTarjeta, 2000.0);
 
         List<IProducto> puliCompra = List.of(empanada, limonada);
 

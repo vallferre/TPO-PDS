@@ -8,6 +8,7 @@ public class PagoConMercadoPago extends MetodoPago {
         this.tarjeta = tarjeta;
     }
 
+    @Override
     public boolean procesarPago(double monto){
         if (tarjeta != null) {
             boolean fondosExitosos = tarjeta.validarFondos(monto);

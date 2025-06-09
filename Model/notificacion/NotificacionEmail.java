@@ -25,4 +25,10 @@ public class NotificacionEmail implements INotificable {
         }
     }
 
+    @Override
+    public String toString() {
+        return "NotificacionEmail{" +
+                "emailDestino=" + emailDestino +
+                '}';
+    }
 }

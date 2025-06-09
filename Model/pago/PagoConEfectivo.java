@@ -4,7 +4,8 @@ public class PagoConEfectivo extends MetodoPago {
 
     private double saldo;
 
-    public PagoConEfectivo() {
+    public PagoConEfectivo(double saldo) {
+        this.saldo = saldo;
     }
 
     @Override

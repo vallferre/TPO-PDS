@@ -20,5 +20,4 @@ public class NotificacionPush implements INotificable {
             System.out.println(mensaje);
         }
     }
-
 }
