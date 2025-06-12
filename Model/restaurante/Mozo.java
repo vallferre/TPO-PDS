@@ -3,8 +3,10 @@ package restaurante;
 import cliente.Cliente;
 import cliente.Email;
 import notificacion.INotificable;
+import notificacion.NotificacionPush;
 import pedido.Estado;
 import pedido.Pedido;
+import plataforma.AppMobile;
 
 import java.io.*;
 import java.time.LocalTime;
@@ -89,7 +91,10 @@ public class Mozo extends Staff {
 
 
     public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
-        cliente.getPlataforma().notificar(mensaje, pedido, cliente, staff);
+        if (cliente.getPlataforma() instanceof AppMobile){
+            INotificable notificacion = new NotificacionPush();
+            notificacion.notificar(mensaje, pedido, cliente, staff);
+        }
     }
 
     @Override
