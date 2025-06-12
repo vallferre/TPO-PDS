@@ -29,7 +29,7 @@ public class Cobro {
     }
 
     public boolean irAPagar(Pedido pedido, Plataforma plataforma) {
-        if (cupon != null && plataforma.getClass() != Totem.class) {
+        if (cupon != null && plataforma.aceptaCupones()) {
             monto = aplicarCupon();
         }
 

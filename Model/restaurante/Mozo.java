@@ -89,7 +89,7 @@ public class Mozo extends Staff {
 
 
     public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
-        canal.notificar(mensaje, pedido, cliente, staff);
+        cliente.getPlataforma().notificar(mensaje, pedido, cliente, staff);
     }
 
     @Override

@@ -48,8 +48,12 @@ public class Cliente {
         return historialPedidos;
     }
 
+    public INotificable getCanal() {
+        return canal;
+    }
+
     public void recibirNotificacion(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
-        canal.notificar(mensaje, pedido, cliente, staff);
+        plataforma.notificar(mensaje, pedido, cliente, staff);
     }
 
 }

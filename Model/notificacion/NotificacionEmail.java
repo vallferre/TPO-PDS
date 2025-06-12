@@ -20,9 +20,7 @@ public class NotificacionEmail implements INotificable {
 
     @Override
     public void notificar(String mensaje, Pedido pedido, Cliente cliente, Staff staff) {
-        if (cliente.getPlataforma() instanceof AppMobile) {
-            System.out.println("[EMAIL a " + emailDestino.getUsername() + emailDestino.getDomain() + "] " + mensaje);
-        }
+        System.out.println("[EMAIL a " + emailDestino.getUsername() + emailDestino.getDomain() + "] " + mensaje);
     }
 
     @Override
