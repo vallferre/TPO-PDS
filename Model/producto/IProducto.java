@@ -5,7 +5,7 @@ import java.util.*;
 
 public interface IProducto {
 
-    float getPrecio();
+    double getPrecio();
 
     String getDescripcion();
 

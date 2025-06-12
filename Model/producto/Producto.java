@@ -33,7 +33,7 @@ public class Producto implements IProducto {
     }
 
     @Override
-    public float getPrecio() {
+    public double getPrecio() {
         return precio;
     }
 

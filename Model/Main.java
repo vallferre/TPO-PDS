@@ -9,6 +9,7 @@ import pedido.*;
 import plataforma.AppMobile;
 import plataforma.Plataforma;
 import plataforma.Totem;
+import producto.AlergenoExtraDecorator;
 import producto.CategoriaProducto;
 import producto.IProducto;
 import producto.Producto;
@@ -120,7 +121,9 @@ public class Main {
 
         GestorPedidos gestorPedidos = GestorPedidos.getInstancia(restaurante);
 
-        List<IProducto> productosSeleccionados = List.of(empanada, limonada);
+        IProducto nEmpanada = new AlergenoExtraDecorator(empanada, "Masa sin gluten", 100.0);
+
+        List<IProducto> productosSeleccionados = List.of(nEmpanada, limonada);
 
         System.out.println("Tu pedido:");
         for (IProducto p : productosSeleccionados) {

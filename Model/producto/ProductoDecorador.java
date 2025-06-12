@@ -12,7 +12,7 @@ public abstract class ProductoDecorador implements IProducto {
     }
 
     @Override
-    public float getPrecio() {
+    public double getPrecio() {
         return componente.getPrecio();
     }
 

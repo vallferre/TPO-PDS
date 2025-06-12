@@ -6,9 +6,9 @@ import java.util.*;
 public class AlergenoExtraDecorator extends ProductoDecorador {
 
     private String alergenoExtra;
-    private float cargoExtra;
+    private double cargoExtra;
 
-    public AlergenoExtraDecorator(IProducto componente, String alergenoExtra, float cargoExtra) {
+    public AlergenoExtraDecorator(IProducto componente, String alergenoExtra, double cargoExtra) {
         super(componente);
         this.alergenoExtra = alergenoExtra;
         this.cargoExtra = cargoExtra;
@@ -20,7 +20,7 @@ public class AlergenoExtraDecorator extends ProductoDecorador {
     }
 
     @Override
-    public float getPrecio() {
+    public double getPrecio() {
         return super.getPrecio() + cargoExtra;
     }
 
