@@ -10,7 +10,7 @@ public class PagoConEfectivo extends MetodoPago {
 
     @Override
     public boolean procesarPago(double monto) {
-        if (monto <= saldo) {
+        if (monto <= (saldo*0.9)) {
             saldo -= monto;
             return true;
         }
