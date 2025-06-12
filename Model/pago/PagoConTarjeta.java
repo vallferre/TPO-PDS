@@ -7,6 +7,11 @@ public class PagoConTarjeta extends MetodoPago {
     }
 
     @Override
+    public double aplicarDescuento(double monto) {
+        return monto;
+    }
+
+    @Override
     public boolean procesarPago(double monto) {
         if (tarjeta != null) {
             boolean fondosExitosos = tarjeta.validarFondos(monto);

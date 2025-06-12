@@ -3,6 +3,7 @@ package pedido;
 import cliente.CuponDescuento;
 import cliente.ICuponAplicable;
 import pago.MetodoPago;
+import pago.PagoConEfectivo;
 import plataforma.Plataforma;
 import plataforma.Totem;
 import producto.IProducto;
@@ -32,6 +33,8 @@ public class Cobro {
         if (cupon != null && plataforma.aceptaCupones()) {
             monto = aplicarCupon();
         }
+
+        monto = metodoPago.aplicarDescuento(monto);
 
         boolean pagoExitoso = metodoPago.procesarPago(monto);
         if (pagoExitoso){
