@@ -7097,7 +7097,7 @@
 											"top": 598,
 											"width": 153.3310546875,
 											"height": 13,
-											"text": "+getPrecio(): float",
+											"text": "+getPrecio(): double",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7415,7 +7415,7 @@
 											"top": 580,
 											"width": 209.45703125,
 											"height": 13,
-											"text": "+getPrecio(): float      «override»",
+											"text": "+getPrecio(): double      «override»",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7677,7 +7677,7 @@
 											"top": 453,
 											"width": 209.45703125,
 											"height": 13,
-											"text": "-cargoExtra: float",
+											"text": "-cargoExtra: double",
 											"horizontalAlignment": 0
 										}
 									],
@@ -7713,7 +7713,7 @@
 											"top": 476,
 											"width": 209.45703125,
 											"height": 13,
-											"text": "+getPrecio(): float      «override»",
+											"text": "+getPrecio(): double      «override»",
 											"horizontalAlignment": 0
 										},
 										{
@@ -23295,7 +23295,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGWkKqUh782DXA="
 									},
-									"type": "float",
+									"type": "double",
 									"direction": "return"
 								}
 							]
@@ -23532,7 +23532,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGWkNTCEeTL7hQ="
 									},
-									"type": "float      «override»",
+									"type": "double      «override»",
 									"direction": "return"
 								}
 							]
@@ -23638,7 +23638,7 @@
 							},
 							"name": "cargoExtra",
 							"visibility": "private",
-							"type": "float"
+							"type": "double"
 						}
 					],
 					"operations": [
@@ -23656,7 +23656,7 @@
 									"_parent": {
 										"$ref": "AAAAAAGWkNVusvwBIjs="
 									},
-									"type": "float      «override»",
+									"type": "double      «override»",
 									"direction": "return"
 								}
 							]
